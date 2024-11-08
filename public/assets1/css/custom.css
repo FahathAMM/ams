@@ -1,0 +1,479 @@
+/* ===============Data Table====================== */
+
+.selected-row {
+    background-color: #F5F6F8;
+}
+
+/* .dt-buttons {
+    display: none !important;
+} */
+
+div.dt-top-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+div.dt-center-in-div {
+    margin: -8px auto;
+}
+
+div.dt-center-in-div button {
+    background-color: transparent;
+    border: none;
+    padding: 2px;
+}
+
+.datatable-crud {
+    font-size: .8rem !important;
+}
+
+#datatable-crud_processing, #datatable-crud1_processing {
+    min-height: 35px !important;
+    background-image: url('/bo/assets/images/table_loader.gif') !important;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.98;
+    z-index: 99;
+    /* width: 35px; */
+}
+
+
+.datatable-crud_processing {
+    min-height: 10px !important;
+    background-image: url('/bo/assets/images/table_loader.gif') !important;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.98;
+    z-index: 99;
+}
+
+#datatable-crud_filter .waves-effect {
+    position: relative !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    overflow: hidden !important;
+    user-select: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+.datatable-crud_filter .waves-effect {
+    position: relative !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    overflow: hidden !important;
+    user-select: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+div #datatable-crud_filter button,
+div #datatable-crud_filter button:hover {
+    padding: 4px 10px;
+}
+
+div .datatable-crud_filter button,
+div .datatable-crud_filter button:hover {
+    padding: 4px 10px;
+}
+
+div #datatable_filter a,
+div #datatable_filter a:hover {
+    padding: 4px 10px;
+}
+
+div .datatable_filter a,
+div .datatable_filter a:hover {
+    padding: 4px 10px;
+}
+
+div #datatable-crud_filter a,
+div #datatable-crud_filter a:hover {
+    padding: 4px 10px;
+}
+
+div .datatable-crud_filter a,
+div .datatable-crud_filter a:hover {
+    padding: 4px 10px;
+}
+
+div #datatable-crud_filter section,
+div #datatable-crud_filter section:hover {
+    padding: 4px 10px;
+}
+
+div .datatable-crud_filter section,
+div .datatable-crud_filter section:hover {
+    padding: 4px 10px;
+}
+
+div .pull-right a,
+div .pull-right a:hover {
+    padding: 4px 10px;
+}
+
+div.dt-center-in-div button:hover {
+    background-color: transparent;
+    border: none;
+    padding: 2px;
+}
+
+div.dt-filter-spacer {
+    margin: 10px 0;
+}
+
+#datatable-crud_filter input[type="search"] {
+    margin: 0px 6px 0px 0px;
+    padding: 0px 10px 2px 13px;
+}
+
+.datatable-crud_filter input[type="search"] {
+    margin: 0px 6px 0px 0px;
+    padding: 0px 10px 2px 13px;
+}
+
+#datatable-crud_filter .btn-group>.btn-group:not(:last-child)>.btn,
+.btn-group>.btn:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius: .25rem !important;
+    border-bottom-right-radius: .25rem !important;
+}
+
+.datatable-crud_filter .btn-group>.btn-group:not(:last-child)>.btn,
+.btn-group>.btn:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius: .25rem !important;
+    border-bottom-right-radius: .25rem !important;
+}
+
+#datatable-crud_filter .btn-group>.btn-group:not(:first-child)>.btn,
+.btn-group>.btn:nth-child(n+3),
+.btn-group>:not(.btn-check)+.btn {
+    border-top-left-radius: .25rem !important;
+    border-bottom-left-radius: .25rem !important;
+}
+
+.datatable-crud_filter .btn-group>.btn-group:not(:first-child)>.btn,
+.btn-group>.btn:nth-child(n+3),
+.btn-group>:not(.btn-check)+.btn {
+    border-top-left-radius: .25rem !important;
+    border-bottom-left-radius: .25rem !important;
+}
+
+.grid-action-btn button {
+    padding: 0px 6px !important;
+}
+
+.grid-action-btn a {
+    /* padding: 0px 6px !important;
+    margin-right: 2px !important; */
+
+    padding: 0px 5px !important;
+    margin-right: 3px !important;
+}
+
+.grid-action-btn a i {
+    font-size: 9px !important;
+}
+
+.grid-action-btn button i {
+    font-size: 9px !important;
+}
+
+.dt-header {
+    font-size: 11px !important;
+    vertical-align: middle;
+    box-shadow: none;
+    font-weight: normal !important;
+}
+
+#datatable-crud thead .dt-header-row th {
+    padding: 0 20px !important;
+}
+
+.datatable-crud thead .dt-header-row th {
+    padding: 0 20px !important;
+}
+
+.table-bordered {
+    border: 1px solid #eaebee !important;
+}
+
+#datatable-crud td {
+    border: 1px solid #eaebee !important;
+
+}
+
+#datatable-crud th {
+    height: 22px !important;
+    background: #F4F5F7 !important;
+    color: #224069 !important;
+}
+
+.datatable-crud th {
+    height: 22px !important;
+    background: #F4F5F7 !important;
+    color: #224069 !important;
+}
+
+#datatable-crud1 th {
+    height: 22px !important;
+    background: #F4F5F7 !important;
+    color: #224069 !important;
+}
+
+.datatable-crud1 th {
+    height: 22px !important;
+    background: #F4F5F7 !important;
+    color: #224069 !important;
+}
+
+/* ===============end data table ====================== */
+
+
+
+/* ===============Form====================== */
+.select2-selection {
+    border-radius: 0px !important;
+}
+
+.select2-results__options {
+    font-size: 11px !important;
+}
+
+.select2-results__option {
+    padding: 0px 5px !important;
+}
+
+.select2-container--default .select2-search--dropdown {
+    padding: 4px !important;
+}
+
+.select2-search__field {
+    font-size: 11px !important;
+}
+
+/* ===============End Form====================== */
+
+
+
+/* ===============Nav Bar====================== */
+.header-user {
+    background: #ffffff;
+    /* border-radius: 4px; */
+    padding-top: 0px;
+    padding-bottom: 14px;
+    margin-right: -3px;
+    /* width: 115px; */
+    height: 50px;
+}
+
+.waves-effect {
+    position: relative !important;
+    cursor: pointer !important;
+    display: block !important;
+    overflow: hidden !important;
+    user-select: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+.btn {
+    box-shadow: none !important;
+}
+
+/* ===============end Nav Bar====================== */
+
+
+/* =======loader===== */
+#loading {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.98;
+    background-color: #fff;
+    z-index: 99;
+}
+
+#loading-image {
+    z-index: 100;
+}
+
+#loading p {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Add your loader styles for print/close/submit */
+.loader {
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+    margin: 0px -3px;
+    vertical-align: middle;
+    padding: 0px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============ */
+
+
+/* =========Date Picker=========== */
+
+.date-icon {
+    position: absolute;
+    right: 7px;
+    top: 1px;
+    font-size: 20px;
+}
+
+/* =========End Date Picker=========== */
+
+
+
+/* =========server site validation=========== */
+
+.server-invalid-feedback {
+    margin: 0 0px 0px 205px !important;
+    font-size: 87.5% !important;
+    color: #f46a6a !important;
+}
+
+/* =========server site validation end=========== */
+
+
+/* =========sweet alert=============== */
+
+.sweet-icon-size {
+    font-size: 10px !important;
+}
+
+.custom-swal-container {
+    /* width: 250px; */
+    /* Adjust the width of the Swal container */
+    height: auto;
+    /* Adjust the height if needed */
+    padding: 10px;
+    /* Adjust the padding around the content */
+}
+
+.delete-swal-container .swal2-popup {
+    display: grid !important;
+    width: 300px !important;
+}
+
+.success-delete-swal-container .swal2-popup {
+    display: grid !important;
+    width: 300px !important;
+}
+
+.success-delete-swal-confirm-btn {
+    display: none !important;
+}
+
+/* =========sweet alert end=========== */
+
+/* .form-control.is-invalid:not([type="date"]), .was-validated .form-control:invalid:not([type="date"]) {
+    border-color: #f46a6a !important;
+    padding-right: calc(1.5em + 0.94rem) !important;
+    background-image: url(data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23f46a6a'%3E%3Ccircle cx='6' cy='6' r='4.5'/%3E%3Cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3E%3Ccircle cx='6' cy='8.2' r='.6' fill='%23f46a6a' stroke='none'/%3E%3C/svg%3E) !important;
+    background-repeat: no-repeat !important;
+    background-position: right calc(0.375em + 0.235rem) center !important;
+    background-size: calc(0.75em + 0.47rem) calc(0.75em + 0.47rem) !important;
+} */
+
+/* .form-control.is-invalid:not([type="date"]),
+.was-validated .form-control:invalid:not([type="date"]) {
+    border-color: #f46a6a;
+    background-image: none !important;
+} */
+
+/* =========override from app.min.css=========== */
+
+
+body[data-layout-size=boxed] #layout-wrapper {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+body[data-layout=horizontal][data-layout-size=boxed] .container-fluid, body[data-layout=horizontal][data-layout-size=boxed] .navbar-header {
+    max-width: 1520px !important
+}
+
+#topnav-menu-content {
+    justify-content: end !important;
+}
+
+
+@media (max-width:991.98px) {
+    body[data-layout=horizontal] .page-content {
+        margin-top: 60px !important
+    }
+
+    .container-fluid {
+        margin-bottom: 35px !important;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .topnav {
+        padding: 0 4px !important;
+    }
+}
+
+/* =========end override from app.min.css=========== */
+
+
+/* Extra Small devices (phones) */
+@media (max-width: 575.98px) {
+    /* Your styles for extra small devices go here */
+}
+
+/* Small devices (tablets) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    /* Your styles for small devices go here */
+}
+
+/* Medium devices (laptops) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    /* Your styles for medium devices go here */
+}
+
+/* Large devices (desktops) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    /* Your styles for large devices go here */
+}
+
+/* X-Large devices (large desktops) */
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+    /* Your styles for X-Large devices go here */
+}
+
+/* XX-Large devices (extra large desktops) */
+@media (min-width: 1400px) {
+    /* Your styles for XX-Large devices go here */
+}
