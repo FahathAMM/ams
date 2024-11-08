@@ -16,7 +16,6 @@ class UsersTableSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('roles')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         Role::create(['name' => 'Admin']);
         Role::create(['name' => 'Developer']);
@@ -47,5 +46,7 @@ class UsersTableSeeder extends Seeder
         $user->assignRole($superAdmin->name);
 
         // \App\Models\User::factory(50)->create();
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
