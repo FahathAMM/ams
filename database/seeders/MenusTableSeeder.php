@@ -27,7 +27,7 @@ class MenusTableSeeder extends Seeder
             'is_active' => 1,
             'icon' => 'ri-dashboard-2-line',
             'menu_code' => 1,
-            'menu' => json_encode(['item1' => 'value1', 'item2' => 'value2']),
+            'menu' => "",
         ]);
 
         $menuHeaderOrg = MenuHeader::create([
@@ -36,16 +36,35 @@ class MenusTableSeeder extends Seeder
             'is_active' => 1,
             'icon' => 'ri-dashboard-2-line',
             'menu_code' => 100,
-            'menu' => json_encode(['item1' => 'value1', 'item2' => 'value2']),
+            'menu' => "",
         ]);
+
+        $menuHeaderAms = MenuHeader::create([
+            'name1' => 'Assets',
+            'name2' => 'Assets',
+            'is_active' => 1,
+            'icon' => 'ri-dashboard-2-line',
+            'menu_code' => 200,
+            'menu' => "",
+        ]);
+
+        $menuHeaderWrkbase = MenuHeader::create([
+            'name1' => 'Workbase',
+            'name2' => 'Workbase',
+            'is_active' => 1,
+            'icon' => 'ri-dashboard-2-line',
+            'menu_code' => 300,
+            'menu' => "",
+        ]);
+
 
         $menuHeaderAdministration = MenuHeader::create([
             'name1' => 'Administration',
             'name2' => 'Administration',
             'is_active' => 1,
             'icon' => 'ri-admin-line',
-            'menu_code' => 300,
-            'menu' => json_encode(['item1' => 'value1', 'item2' => 'value2']),
+            'menu_code' => 400,
+            'menu' => "",
         ]);
 
         $menuDetails = [
@@ -54,7 +73,7 @@ class MenusTableSeeder extends Seeder
                 'name1' => 'Employee',
                 'name2' => 'Employee',
                 'sequence' => '1',
-                'page_url' => '#',
+                'page_url' => 'organization/employee',
                 'is_submenu_available' => 0,
                 'is_active' => 1,
                 'icon' => ' ri-user-line',
@@ -62,10 +81,70 @@ class MenusTableSeeder extends Seeder
 
             [
                 'menu_header_id' => $menuHeaderOrg->id,
+                'name1' => 'Customer',
+                'name2' => 'Customer',
+                'sequence' => '2',
+                'page_url' => 'organization/customer',
+                'is_submenu_available' => 0,
+                'is_active' => 1,
+                'icon' => ' ri-user-line',
+            ],
+
+            [
+                'menu_header_id' => $menuHeaderOrg->id,
+                'name1' => 'Branch',
+                'name2' => 'Branch',
+                'sequence' => '4',
+                'page_url' => 'organization/branch',
+                'is_submenu_available' => 0,
+                'is_active' => 1,
+                'icon' => ' ri-computer-line',
+            ],
+
+            [
+                'menu_header_id' => $menuHeaderOrg->id,
+                'name1' => 'Department',
+                'name2' => 'Department',
+                'sequence' => '5',
+                'page_url' => 'organization/department',
+                'is_submenu_available' => 0,
+                'is_active' => 1,
+                'icon' => ' ri-computer-line',
+            ],
+
+
+            //menuHeaderAMS
+
+            [
+                'menu_header_id' => $menuHeaderAms->id,
                 'name1' => 'Asset',
                 'name2' => 'Asset',
                 'sequence' => '1',
-                'page_url' => '#',
+                'page_url' => 'assets/asset',
+                'is_submenu_available' => 0,
+                'is_active' => 1,
+                'icon' => ' ri-computer-line',
+            ],
+
+            //menuHeaderWrkbase
+
+            [
+                'menu_header_id' => $menuHeaderWrkbase->id,
+                'name1' => 'EOD',
+                'name2' => 'EOD',
+                'sequence' => '1',
+                'page_url' => 'workbase/eodreport',
+                'is_submenu_available' => 0,
+                'is_active' => 1,
+                'icon' => ' ri-computer-line',
+            ],
+
+            [
+                'menu_header_id' => $menuHeaderWrkbase->id,
+                'name1' => 'Daily Completion',
+                'name2' => 'EOD',
+                'sequence' => '2',
+                'page_url' => 'workbase/eodlist',
                 'is_submenu_available' => 0,
                 'is_active' => 1,
                 'icon' => ' ri-computer-line',
@@ -98,8 +177,18 @@ class MenusTableSeeder extends Seeder
                 'menu_header_id' => $menuHeaderAdministration->id,
                 'name1' => 'Permission',
                 'name2' => 'Permission',
-                'sequence' => '2',
+                'sequence' => '3',
                 'page_url' => 'administration/permission',
+                'is_submenu_available' => 0,
+                'is_active' => 1,
+                'icon' => 'ri-shield-keyhole-line',
+            ],
+            [
+                'menu_header_id' => $menuHeaderAdministration->id,
+                'name1' => 'User Activty',
+                'name2' => 'User Activty',
+                'sequence' => '4',
+                'page_url' => 'administration/user-activity',
                 'is_submenu_available' => 0,
                 'is_active' => 1,
                 'icon' => 'ri-shield-keyhole-line',

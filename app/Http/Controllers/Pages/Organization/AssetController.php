@@ -25,9 +25,9 @@ class AssetController extends Controller
         $this->repo = $repo;
         $this->model = $model;
         $this->isDestroyingAllowed = true;
-        $this->middleware('userpermission:organization-asset-view')->only('index');
-        $this->middleware('userpermission:organization-asset-create')->only('create');
-        $this->middleware('userpermission:organization-asset-edit')->only('edit');
+        $this->middleware('userpermission:assets-asset-view')->only('index');
+        $this->middleware('userpermission:assets-asset-create')->only('create');
+        $this->middleware('userpermission:assets-asset-edit')->only('edit');
     }
 
     public function index(Request $request)
@@ -47,7 +47,7 @@ class AssetController extends Controller
                     return actionBtns(
                         $asset->id,
                         'asset.edit',
-                        'organization/asset',
+                        'assets/asset',
                         '',
                         $permissions
                     );

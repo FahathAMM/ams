@@ -33,7 +33,8 @@
         </li>
     </ul>
     <div class="flex-shrink-0">
-        <a href="pages-profile-settings.html" class="btn btn-success"><i class="ri-edit-box-line align-bottom"></i> Edit
+        <a href="{{ route('employee.edit', ['employee' => $employee->id]) }}" class="btn btn-success"><i
+                class="ri-edit-box-line align-bottom"></i> Edit
             Profile</a>
     </div>
 </div>

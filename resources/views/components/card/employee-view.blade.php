@@ -73,7 +73,7 @@
                             class="btn btn-light view-btn">View Profile</a>
                     </div>
                 @else
-                    @canOrRole('administration-users-view', 'view')
+                    @canOrRole('administration-employee-view', 'view')
                     <div class="text-end">
                         <a href="{{ route('employee.show', ['employee' => $data['id']]) }}"
                             class="btn btn-light view-btn">View Profile</a>

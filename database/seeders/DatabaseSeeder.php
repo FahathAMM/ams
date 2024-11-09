@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
             CategoryTableSeeder::class,
             EmployeesTableSeeder::class,
             UsersTableSeeder::class,
-            // MenusTableSeeder::class,
+            MenusTableSeeder::class,
         ]);
     }
 }

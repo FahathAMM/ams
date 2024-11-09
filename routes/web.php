@@ -61,13 +61,11 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('organization/employee', EmployeeController::class);
     Route::resource('organization/customer', CustomerController::class);
-    Route::resource('organization/asset', AssetController::class);
+    Route::resource('assets/asset', AssetController::class);
     Route::resource('organization/branch', BranchController::class);
     Route::resource('organization/department', DepartmentController::class);
 
-
     Route::resource('roomease/apartment', ApartmentController::class);
-
 
     Route::resource('workbase/eodreport', EODController::class);
     Route::get('workbase/eodlist/{id?}', [EODController::class, 'EODList'])->name('eod.list');

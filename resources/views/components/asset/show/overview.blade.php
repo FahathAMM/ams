@@ -36,13 +36,14 @@
                                 <td class="text-muted">{{ $employee->email ?? '' }}</td>
                             </tr>
                             <tr>
-                                <th class="ps-0" scope="row">Location :</th>
-                                <td class="text-muted">{{ ucwords($employee->full_name) ?? '' }}
+                                <th class="ps-0" scope="row">Country :</th>
+                                <td class="text-muted">{{ ucwords($employee->country) ?? '' }}
                                 </td>
                             </tr>
                             <tr>
                                 <th class="ps-0" scope="row">Joining Date</th>
-                                <td class="text-muted">{{ $employee->full_name ?? '' }}</td>
+                                <td class="text-muted">{{ date('d M Y', strtotime($employee->joining_date)) ?? '' }}
+                                </td>
                             </tr>
                         </tbody>
                     </table>

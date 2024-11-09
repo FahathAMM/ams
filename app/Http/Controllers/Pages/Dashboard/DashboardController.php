@@ -30,6 +30,8 @@ class DashboardController extends Controller
     {
         // $this->fakeData();
 
+        // return currentUser();
+        // return currentUser()->getPermissionsViaRoles();
 
         $userLogs = $this->getUserActivites();
 
