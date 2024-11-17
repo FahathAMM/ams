@@ -9,11 +9,12 @@ use Illuminate\Http\Request;
 use App\Models\Branch\Branch;
 use Yajra\DataTables\DataTables;
 use App\Models\Employee\Employee;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Models\Department\Department;
 use App\Http\Requests\Employee\StoreRequest;
 use App\Http\Requests\Employee\UpdateRequest;
-use App\Models\Department\Department;
 use App\Repositories\Organization\EmployeeRepo;
 
 class EmployeeController extends Controller
@@ -115,10 +116,12 @@ class EmployeeController extends Controller
 
     public function show(string $id)
     {
-        // return $this->repo->findEmployeeById($id);
+        $employee = $this->repo->findEmployeeById($id);
+        $empEodLogs = $this->repo->assignedEmployeeEodLogs($employee);
 
         return view('pages.organization.asset.show', [
-            'employee' => $this->repo->findEmployeeById($id),
+            'employee' => $employee,
+            'empEodLogs' => $empEodLogs,
             'title' =>   $this->modelName,
         ]);
     }
@@ -140,9 +143,7 @@ class EmployeeController extends Controller
                 'employees' => Employee::with('reportManager:id,first_name,last_name,username')->get(['id', 'first_name', 'last_name']),
             ]);
         } catch (\Throwable $th) {
-            // Handle any errors here if needed
-            // Log or return an error response
-            // throw $th; // Uncomment this line if you want to throw the exception for debugging
+            throw $th;
         }
     }
 

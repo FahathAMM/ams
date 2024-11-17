@@ -1,6 +1,7 @@
 <?php
 
 use Livewire\Livewire;
+use Illuminate\Support\Facades\DB;
 use App\Models\Department\Department;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Pages\EOD\EodLivewire;
@@ -16,8 +17,10 @@ use App\Http\Controllers\Pages\Dashboard\DashboardController;
 use App\Http\Controllers\Pages\Organization\BranchController;
 use App\Http\Controllers\Pages\Organization\CustomerController;
 use App\Http\Controllers\Pages\Organization\EmployeeController;
+use App\Http\Controllers\Pages\Administration\SettingController;
 use App\Http\Controllers\Pages\Organization\DepartmentController;
 use App\Http\Controllers\Pages\Administration\PermissionController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +60,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('administration/role', RoleController::class);
     Route::resource('administration/permission', PermissionController::class);
     Route::resource('administration/user', UserController::class);
+    Route::resource('administration/setting', SettingController::class);
+
     Route::get('administration/user-activity', [UserController::class, 'userActivity']);
+
+    Route::get('administration/employee-eod-chart', [DashboardController::class, 'getEodChartByEmployee']);
 
     Route::resource('organization/employee', EmployeeController::class);
     Route::resource('organization/customer', CustomerController::class);
@@ -72,8 +79,7 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/livewire.php';
 
 
-Livewire::setUpdateRoute(function ($handle) {
-    return Route::post('/ams/livewire/update', $handle);
-});
+Route::get('get-cards', [DashboardController::class, 'GetKPIs']);

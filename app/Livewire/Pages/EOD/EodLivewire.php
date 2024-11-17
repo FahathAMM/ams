@@ -57,7 +57,9 @@ class EodLivewire extends Component
     public function fetchEODDate()
     {
         $this->fetchCUrrentEmployee();
-        return $eodDateList = Task::where('employee_id', $this->empId)->groupBy('eod_date')->get(['eod_date', 'subject']);
+        // $eodDateList = Task::where('employee_id', $this->empId)->get(['eod_date', 'subject']);
+        $eodDateList = Task::where('employee_id', $this->empId)->groupBy('eod_date')->get(['eod_date', 'subject']);
+        return $eodDateList;
     }
 
     public function render()

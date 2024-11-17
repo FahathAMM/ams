@@ -76,7 +76,7 @@
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Repoting Manager</h5>
+                                <h5 class="card-title mb-0">Repoting Managers</h5>
                             </div>
                             <!-- end card body -->
                             <div class="card-body">
@@ -84,8 +84,9 @@
                                     {{ $employee->reportManager[0]['id'] }}
                                 </pre> --}}
                                 <div>
-                                    <x-input.select-group label="Employees" name="report_manager_id" itemText="full_name"
-                                        itemValue="id" :items="$employees" :value="$employee->reportManager[0]['id'] ?? ''" data-choices-search-true />
+                                    <x-input.select-group label="EOD Reporting Manager" name="report_manager_id"
+                                        itemText="full_name" itemValue="id" :items="$employees" :value="$employee->reportManager[0]['id'] ?? ''"
+                                        data-choices-search-true />
                                 </div>
                             </div>
                         </div>

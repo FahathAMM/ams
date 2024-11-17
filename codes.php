@@ -162,3 +162,125 @@ return view('pages/administration/permission/index', [
 'userWithRoles' => User::with('roles')->get(),
 ]);
 }
+
+
+===============code peromance============
+return $results = DB::table('tasks')
+->join('employees', 'tasks.employee_id', '=', 'employees.id')
+->where('tasks.report_manager_id', $empId)
+->select(
+'employees.username',
+'employees.first_name',
+'employees.last_name',
+DB::raw('YEAR(tasks.eod_date) as year'),
+DB::raw('MONTH(tasks.eod_date) as month'),
+'tasks.eod_date',
+'tasks.employee_id'
+)
+->groupBy('employees.username', DB::raw('YEAR(tasks.eod_date)'), DB::raw('MONTH(tasks.eod_date)'), 'tasks.eod_date', 'tasks.employee_id')
+->orderBy('employees.username')
+->orderBy('year')
+->orderBy('month')
+->get()
+->groupBy('username'); // Group by username in the collection
+
+
+return Task::join('employees', 'tasks.employee_id', '=', 'employees.id')
+->where('tasks.report_manager_id', $empId)
+->select(
+'tasks.id',
+'tasks.eod_date',
+'tasks.employee_id',
+'employees.username',
+'employees.first_name',
+'employees.last_name'
+)
+->groupBy('eod_date', 'employee_id')
+->orderBy('employees.username')
+->get()
+->groupBy('username')
+->map(function ($tasksByEmployee) {
+return $tasksByEmployee->groupBy(function ($task) {
+return \Carbon\Carbon::parse($task->eod_date)->format('Y-m'); // Group by year-month
+});
+});
+
+
+
+return Task::join('employees', 'tasks.employee_id', '=', 'employees.id')
+->where('tasks.report_manager_id', $empId)
+->select(
+'tasks.eod_date',
+'tasks.employee_id',
+'employees.username',
+'employees.first_name',
+'employees.last_name'
+)
+->groupBy('eod_date', 'employee_id')
+->orderBy('employees.username') // Order by username for easier grouping
+->get()
+->groupBy('username'); // Group by username in the collection
+
+return Task::where('report_manager_id', $empId)
+->with('employee:id,first_name,last_name,username')
+->select('eod_date', 'employee_id') // Specify columns to avoid errors in groupBy
+->groupBy('eod_date', 'employee_id')
+->get()
+->groupBy(function ($task) {
+return $task->employee->username; // Group by employee's username
+});
+
+return Task::where('report_manager_id', $empId)
+->with('employee:id,first_name,last_name,username')
+->select('eod_date', 'employee_id') // Specify columns to avoid errors in groupBy
+->groupBy('eod_date', 'employee_id')
+->get()
+->groupBy('employee_id');
+
+return Task::join('employees', 'tasks.employee_id', '=', 'employees.id')
+->where('tasks.report_manager_id', $empId)
+->select(
+'tasks.id',
+'tasks.eod_date',
+'tasks.employee_id',
+'employees.username',
+'employees.first_name',
+'employees.last_name'
+)
+->groupBy('eod_date', 'employee_id')
+->orderBy('employees.username')
+->get()
+->groupBy('username')
+->map(function ($tasksByEmployee) {
+return $tasksByEmployee->groupBy(function ($task) {
+return \Carbon\Carbon::parse($task->eod_date)->format('Y-m'); // Group by year-month
+})->map(function ($tasksByMonth) {
+return count($tasksByMonth);
+});
+});
+
+
+
+return Task::join('employees', 'tasks.employee_id', '=', 'employees.id')
+->where('tasks.report_manager_id', $empId)
+->select(
+'tasks.id',
+'tasks.eod_date',
+'tasks.employee_id',
+'employees.username',
+'employees.first_name',
+'employees.last_name'
+)
+->groupBy('eod_date', 'employee_id')
+->orderBy('employees.username')
+->get()
+->groupBy('username')
+->map(function ($tasksByEmployee) {
+return $tasksByEmployee->groupBy(function ($task) {
+return \Carbon\Carbon::parse($task->eod_date)->format('Y-m'); // Group by year-month
+})->map(function ($t) {
+return count($t);
+});
+});
+
+===============code peromance============

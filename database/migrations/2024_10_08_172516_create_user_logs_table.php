@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('form_record_id')->nullable();
             $table->string('log_action')->nullable();
             $table->string('browser')->nullable();
+            $table->enum('type', ['eod', 'normal'])->default('normal');
             $table->date('create_date')->nullable();
             $table->timestamps();
         });

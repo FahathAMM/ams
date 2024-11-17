@@ -7,6 +7,14 @@
 
 <div class="page-content">
     <div class="container-fluid">
+        <div class="row mb-3 pb-1">
+            <div class="col-12">
+                <x-dashboard.include.greeting />
+                <!-- end card header -->
+            </div>
+            <!--end col-->
+        </div>
+
         <div class="row">
             <div class="col-xxl-2 col-md-3">
                 <div class="card card-height-100">

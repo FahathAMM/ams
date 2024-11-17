@@ -29,7 +29,7 @@ if (!function_exists('pdfToBase64')) {
 
 if (!function_exists('logActivity')) {
 
-    function logActivity($log_form_name = "", $log_form_record_code = "", $log_action = "",  $log_form_record_detail = "",  $log_user = "")
+    function logActivity($log_form_name = "", $log_form_record_code = "", $log_action = "",  $log_form_record_detail = "", $log_type = 'normal', $log_user = "")
     {
         $log_user = auth()->user();
         $log_cdate = now();
@@ -59,6 +59,7 @@ if (!function_exists('logActivity')) {
                 'form_record_id'      => $log_form_record_code,
                 'log_action'     => $log_action,
                 'browser'        => $log_browser,
+                'type'        => $log_type,
                 'create_date'    => now(),
                 'created_at'     => now(),
                 'updated_at'     => now(),
@@ -123,6 +124,20 @@ if (!function_exists('fetchCurrentEmployeeWithReportingManagers')) {
 
         if ($empId) {
             return $emp = Employee::with(['reportManager:id,first_name,last_name,img'])->find($empId);
+        }
+
+        return abort(450);
+    }
+}
+
+
+if (!function_exists('fetchCurrentEmployeeWithAssignedReportingEmployees')) {
+    function fetchCurrentEmployeeWithAssignedReportingEmployees()
+    {
+        $empId = currentUser()->employee_id;
+
+        if ($empId) {
+            return $emp = Employee::with(['reportingManager:id,first_name,last_name,img'])->find($empId);
         }
 
         return abort(450);

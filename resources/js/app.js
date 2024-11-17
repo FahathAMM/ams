@@ -4,8 +4,6 @@ import "../css/app.css";
 import "../sass/app.scss";
 
 
-
-
 //  <!-- external plugin -->
 
 import "../assets/js/custom.js";

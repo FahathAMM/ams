@@ -77,6 +77,7 @@ class EODController extends Controller
 
             $created = $this->repo->createTask($request);
             if ($created) {
+                logActivity('EOD Create', "EOD Subject " . $request->subject, 'Create', '', 'eod');
                 return $this->response($this->modelName . ' created successfully', ['data' => $created], true);
             }
             return $this->response('please fill task', ['data' => $created], false);

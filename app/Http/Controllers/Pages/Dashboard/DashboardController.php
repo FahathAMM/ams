@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Pages\Dashboard;
 
 use Exception;
 use Faker\Factory;
-use App\Models\User;
 use App\Models\Customer\Customer;
 use App\Models\Employee\Employee;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
-use NotificationChannels\WebPush\WebPushMessage;
+use App\Models\Task\Task;
 
 class DashboardController extends Controller
 {
@@ -28,9 +26,9 @@ class DashboardController extends Controller
 
     public function index()
     {
-        // $this->fakeData();
+        // return $this->GetKPIs();
 
-        // return currentUser();
+        // return fetchCurrentEmployeeWithAssignedReportingEmployees();
         // return currentUser()->getPermissionsViaRoles();
 
         $userLogs = $this->getUserActivites();
@@ -38,16 +36,104 @@ class DashboardController extends Controller
         return view('pages/dashboard/index', [
             'title' => $this->modelName,
             'userLogs' => $userLogs,
+            'eodChart' => [],
+
         ]);
+    }
+
+    public function GetKPIs()
+    {
+        $counts = DB::table('employees')
+            ->selectRaw("'Total Employees' as title, count(*) as value, 'text-success' as percentageClass, 'bx-dollar-circle' as icon, 'bg-success-subtle' as iconBg, 'text-success' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")
+            ->unionAll(
+                DB::table('employee_report')
+                    ->selectRaw("'Total Assigned Employees' as title, count(*) as value, '' as percentageClass, 'bx-user-circle' as icon, 'bg-success-subtle' as iconBg, 'text-success' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")->where('report_manager_id', currentUser()->employee->id)
+            )->unionAll(
+                DB::table('customers')
+                    ->selectRaw("'Total Customers' as title, count(*) as value, '' as percentageClass, 'bx-user-circle' as icon, 'bg-success-subtle' as iconBg, 'text-success' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")
+            )->unionAll(
+                DB::table('customers')
+                    ->selectRaw("'Total Customers' as title, count(*) as value, '' as percentageClass, 'bx-user-circle' as icon, 'bg-success-subtle' as iconBg, 'text-success' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")
+            )->get();
+
+        $dashboardData = $counts->map(function ($item) {
+            return [
+                'title' => $item->title,
+                'percentage' => $item->percentage,
+                'percentageClass' => $item->percentageClass,
+                'icon' => $item->icon,
+                'iconBg' => $item->iconBg,
+                'iconColor' => $item->iconColor,
+                'value' => $item->value,
+                'valueSuffix' => $item->valueSuffix,
+                'link' => $item->title,
+                'linkUrl' => $item->linkUrl,
+            ];
+        })->toArray();
+
+        return response()->json($dashboardData);
+    }
+
+    public function getEodChartByEmployee()
+    {
+        $empId = currentUser()->employee->id;
+        $eodChart = Task::join('employees', 'tasks.employee_id', '=', 'employees.id')
+            ->where('tasks.report_manager_id', $empId)
+            ->select(
+                'tasks.id',
+                'tasks.eod_date',
+                'tasks.employee_id',
+                'employees.username',
+                'employees.first_name',
+                'employees.last_name'
+            )
+            ->groupBy('eod_date', 'employee_id')
+            ->orderBy('eod_date', 'asc')
+            ->get()
+            ->groupBy('username')
+            ->map(function ($tasksByEmployee) {
+                return $tasksByEmployee->groupBy(function ($task) {
+                    return \Carbon\Carbon::parse($task->eod_date)->format('Y-m'); // Group by year-month
+                })->map(function ($t) {
+                    return count($t);
+                });
+            });
+
+        $eodChart = $eodChart->toArray();
+
+        $series = [];
+
+        $months = array_unique(array_keys(array_merge_recursive(...array_values($eodChart))));
+
+        // Sort dates
+        usort($months, function ($a, $b) {
+            return strtotime($a . '-01') - strtotime($b . '-01');
+        });
+
+        foreach ($eodChart as $name => $monthlyData) {
+            $seriesData = [];
+
+            foreach ($months as $month) {
+                $seriesData[] = $monthlyData[$month] ?? 0;
+            }
+            $series[] = [
+                'name' => $name,
+                'data' => $seriesData,
+            ];
+        }
+        return response()->json(['series' => $series, 'months' => $months]);
     }
 
     private function getUserActivites()
     {
+        $baseUrl = config('app.url') . '/public/storage/';
+        $defaultImg = asset('storage/demo/dm-profile.jpg');
+
         $logs = DB::table('user_logs')
             ->where('log_action', '!=', 'View')
             ->orderBy('created_at', 'desc')
             ->take(100)
-            ->join('users as ut', 'ut.id', '=', 'user_logs.user_id')
+            ->join('users as u', 'u.id', '=', 'user_logs.user_id')
             ->get([
                 'user_logs.user_id',
                 'user_logs.user_name',
@@ -55,20 +141,16 @@ class DashboardController extends Controller
                 'user_logs.form_record_id',
                 'user_logs.log_action',
                 'user_logs.created_at',
-                'ut.img' // Image field from users
+                'u.img as img1',
+                DB::raw("
+                        CASE
+                            WHEN u.img IS NULL OR u.img = '' THEN '$defaultImg'
+                            ELSE CONCAT('$baseUrl', u.img)
+                        END AS img
+                    ")
             ]);
 
-        // Manually apply the image logic
-        $defaultImage = 'https://hancockogundiyapartners.com/wp-content/uploads/2019/07/dummy-profile-pic-300x300.jpg';
-
-        $userLogs = $logs->transform(function ($log) use ($defaultImage) {
-            $log->img = !empty($log->img) && Storage::exists('public/' . $log->img)
-                ? asset('storage/' . $log->img)
-                : $defaultImage;
-            return $log;
-        });
-
-        return $userLogs;
+        return $logs;
     }
 
     public function fakeData()

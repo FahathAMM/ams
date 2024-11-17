@@ -2,15 +2,18 @@
     'userLogs' => $userLogs,
 ])
 
-{{-- {{ $userLogs }} --}}
 
-<div class="p-3">
-    <h6 class="text-muted mb-0 text-uppercase fw-semibold">
+<div class="px-3 py-2  align-items-center d-flex">
+    <h6 class="text-muted mb-0 text-uppercase fw-semibold flex-grow-1">
         Recent Activity
     </h6>
+    <div>
+        <a href="{{ url('administration/user-activity') }}" class="btn btn-soft-secondary btn-sm">
+            View All
+        </a>
+    </div>
 </div>
 
-{{-- <div data-simplebar style="height: 100vh;" class="p-3 pt-0"> --}}
 <div data-simplebar style="max-height: 275px;" class="p-3 pt-0">
     <div class="acitivity-timeline acitivity-main">
         @foreach ($userLogs as $log)
@@ -102,7 +105,7 @@
         Products Reviews
     </h6>
     <!-- Swiper -->
-    <div class="swiper vertical-swiper" style="height: 250px">
+    {{-- <div class="swiper vertical-swiper" style="height: 250px">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
                 <div class="card border border-dashed shadow-none">
@@ -230,7 +233,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 <div class="p-3">
@@ -375,7 +378,7 @@
 
 <div class="card sidebar-alert bg-light border-0 text-center mx-4 mb-0 mt-3">
     <div class="card-body">
-        <img src="assets/images/giftbox.png" alt="" />
+        {{-- <img src="assets/images/giftbox.png" alt="" /> --}}
         <div class="mt-4">
             <h5>Invite New Seller</h5>
             <p class="text-muted lh-base">

@@ -741,26 +741,31 @@
         }
     }
 
+    //disable by fahath
     function D() {
-        var e = document.querySelectorAll(".counter-value");
+        return;
+        setTimeout(() => {
+            var e = document.querySelectorAll(".counter-value");
 
-        function s(e) {
-            return e.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-        e &&
-            Array.from(e).forEach(function (o) {
-                !(function e() {
-                    var t = +o.getAttribute("data-target"),
-                        a = +o.innerText,
-                        n = t / 250;
-                    n < 1 && (n = 1),
-                        a < t ?
-                        ((o.innerText = (a + n).toFixed(0)),
-                            setTimeout(e, 1)) :
-                        (o.innerText = s(t)),
-                        s(o.innerText);
-                })();
-            });
+            function s(e) {
+                return e.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+            e &&
+                Array.from(e).forEach(function (o) {
+                    !(function e() {
+                        var t = +o.getAttribute("data-target"),
+                            a = +o.innerText,
+                            n = t / 250;
+                        n < 1 && (n = 1),
+                            a < t ?
+                            ((o.innerText = (a + n).toFixed(0)),
+                                setTimeout(e, 1)) :
+                            (o.innerText = s(t)),
+                            s(o.innerText);
+                    })();
+                });
+        }, 5000);
+
     }
 
     function b() {
@@ -2168,11 +2173,9 @@
                         },
                         duration: e.duration,
                         close: "close" == e.close,
-                        style: "style" == e.style ?
-                            {
-                                background: "linear-gradient(to right, #0AB39C, #405189)",
-                            } :
-                            "",
+                        style: "style" == e.style ? {
+                            background: "linear-gradient(to right, #0AB39C, #405189)",
+                        } : "",
                     }).showToast();
             });
         }),

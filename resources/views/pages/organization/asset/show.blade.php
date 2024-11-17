@@ -19,7 +19,7 @@
                                 <!--end row-->
                             </div>
                             <div class="tab-pane fade" id="activities" role="tabpanel">
-                                <x-asset.show.activity :employee="$employee" />
+                                <x-asset.show.activity :employee="$employee" :eodLog="$empEodLogs" />
                                 <!--end card-->
                             </div>
                             <!--end tab-pane-->

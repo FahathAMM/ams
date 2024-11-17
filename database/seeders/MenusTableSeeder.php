@@ -21,51 +21,60 @@ class MenusTableSeeder extends Seeder
         DB::table('menu_details')->truncate();
         DB::table('menu_sub_details')->truncate();
 
-        $menuHeaderDashboard = MenuHeader::create([
-            'name1' => 'Dashboards',
-            'name2' => 'Dashboards',
-            'is_active' => 1,
-            'icon' => 'ri-dashboard-2-line',
-            'menu_code' => 1,
-            'menu' => "",
-        ]);
+        $menuHeaderDashboard = MenuHeader::updateOrCreate(
+            ['menu_code' => 1],
+            [
+                'name1' => 'Dashboards',
+                'name2' => 'Dashboards',
+                'is_active' => 1,
+                'icon' => 'ri-dashboard-2-line',
+                'menu' => "",
+            ]
+        );
 
-        $menuHeaderOrg = MenuHeader::create([
-            'name1' => 'Organization',
-            'name2' => 'Organization',
-            'is_active' => 1,
-            'icon' => 'ri-dashboard-2-line',
-            'menu_code' => 100,
-            'menu' => "",
-        ]);
+        $menuHeaderOrg = MenuHeader::updateOrCreate(
+            ['menu_code' => 100],
+            [
+                'name1' => 'Organization',
+                'name2' => 'Organization',
+                'is_active' => 1,
+                'icon' => 'ri-dashboard-2-line',
+                'menu' => "",
+            ]
+        );
 
-        $menuHeaderAms = MenuHeader::create([
-            'name1' => 'Assets',
-            'name2' => 'Assets',
-            'is_active' => 1,
-            'icon' => 'ri-dashboard-2-line',
-            'menu_code' => 200,
-            'menu' => "",
-        ]);
+        $menuHeaderAms = MenuHeader::updateOrCreate(
+            ['menu_code' => 200],
+            [
+                'name1' => 'Assets',
+                'name2' => 'Assets',
+                'is_active' => 1,
+                'icon' => 'ri-dashboard-2-line',
+                'menu' => "",
+            ]
+        );
 
-        $menuHeaderWrkbase = MenuHeader::create([
-            'name1' => 'Workbase',
-            'name2' => 'Workbase',
-            'is_active' => 1,
-            'icon' => 'ri-dashboard-2-line',
-            'menu_code' => 300,
-            'menu' => "",
-        ]);
+        $menuHeaderWrkbase = MenuHeader::updateOrCreate(
+            ['menu_code' => 300],
+            [
+                'name1' => 'Workbase',
+                'name2' => 'Workbase',
+                'is_active' => 1,
+                'icon' => 'ri-dashboard-2-line',
+                'menu' => "",
+            ]
+        );
 
-
-        $menuHeaderAdministration = MenuHeader::create([
-            'name1' => 'Administration',
-            'name2' => 'Administration',
-            'is_active' => 1,
-            'icon' => 'ri-admin-line',
-            'menu_code' => 400,
-            'menu' => "",
-        ]);
+        $menuHeaderAdministration = MenuHeader::updateOrCreate(
+            ['menu_code' => 400],
+            [
+                'name1' => 'Administration',
+                'name2' => 'Administration',
+                'is_active' => 1,
+                'icon' => 'ri-admin-line',
+                'menu' => "",
+            ]
+        );
 
         $menuDetails = [
             [
@@ -191,7 +200,17 @@ class MenusTableSeeder extends Seeder
                 'page_url' => 'administration/user-activity',
                 'is_submenu_available' => 0,
                 'is_active' => 1,
-                'icon' => 'ri-shield-keyhole-line',
+                'icon' => 'ri-contacts-fill',
+            ],
+            [
+                'menu_header_id' => $menuHeaderAdministration->id,
+                'name1' => 'Setting',
+                'name2' => 'Setting',
+                'sequence' => '4',
+                'page_url' => 'administration/setting',
+                'is_submenu_available' => 0,
+                'is_active' => 1,
+                'icon' => 'ri-settings-5-line',
             ],
         ];
 

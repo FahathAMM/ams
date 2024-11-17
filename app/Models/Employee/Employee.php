@@ -6,6 +6,7 @@ use App\Helper\Media;
 use App\Models\Asset\Asset;
 use App\Models\Branch\Branch;
 use App\Models\Department\Department;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -60,6 +61,11 @@ class Employee extends Model
         return $this->belongsTo(Department::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function reportManager() // this relation for creating
     {
         return $this->belongsToMany(Employee::class, 'employee_report', 'employee_id', 'report_manager_id');
@@ -68,12 +74,15 @@ class Employee extends Model
     public function reportingManager() // this relation for getting
     {
         return $this->belongsToMany(Employee::class, 'employee_report', 'report_manager_id', 'employee_id');
-        // return $this->belongsToMany(Employee::class, 'employee_report', 'employee_id', 'report_manager_id');
     }
 
     public function getFullNameAttribute()
     {
-        return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
+        // return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
+
+        $firstName = $this->attributes['first_name'] ?? '';
+        $lastName = $this->attributes['last_name'] ?? '';
+        return trim("$firstName $lastName");
     }
 
     // public function setJoiningDateAttribute($value)
@@ -84,7 +93,6 @@ class Employee extends Model
 
     public function getImgAttribute($value)
     {
-        // $defaultImage = 'https://hancockogundiyapartners.com/wp-content/uploads/2019/07/dummy-profile-pic-300x300.jpg';
         $defaultImage = asset('storage/demo/dm-profile.jpg');
         if (!$value) {
             return $defaultImage;
@@ -99,7 +107,6 @@ class Employee extends Model
 
     public function getCoverImgAttribute($value)
     {
-        // $defaultImage = 'https://hancockogundiyapartners.com/wp-content/uploads/2019/07/dummy-profile-pic-300x300.jpg';
         $defaultImage = asset('storage/demo/dm-cover.jpg');
 
         if (!$value) {

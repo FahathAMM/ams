@@ -1,8 +1,6 @@
 @php
     $currentUser = currentUser(); // Store the current user in a variable
-
 @endphp
-
 
 <div class="dropdown ms-sm-3 header-item topbar-user">
     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"

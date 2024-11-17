@@ -1565,7 +1565,7 @@
 
                                 <div class="card sidebar-alert bg-light border-0 text-center mx-4 mb-0 mt-3">
                                     <div class="card-body">
-                                        <img src="assets/images/giftbox.png" alt="" />
+                                        {{-- <img src="assets/images/giftbox.png" alt="" /> --}}
                                         <div class="mt-4">
                                             <h5>Invite New Seller</h5>
                                             <p class="text-muted lh-base">

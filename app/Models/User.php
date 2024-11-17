@@ -81,7 +81,6 @@ class User extends Authenticatable
     public function getImgAttribute($value)
     {
         // Define the default image URL
-
         $defaultImage = 'https://hancockogundiyapartners.com/wp-content/uploads/2019/07/dummy-profile-pic-300x300.jpg';
 
         // Check if the value is empty

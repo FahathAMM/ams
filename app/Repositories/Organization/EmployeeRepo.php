@@ -4,6 +4,7 @@ namespace App\Repositories\Organization;
 
 use App\Models\User;
 use App\Models\Employee\Employee;
+use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
 
 class EmployeeRepo extends BaseRepository
@@ -73,10 +74,14 @@ class EmployeeRepo extends BaseRepository
                     $path = $request->file('img')->store('profile', 'public');
                     $employee->img = $path;
                     $employee->save();
+
+                    User::whereEmployeeId($employee->id)->update(['img' => $path]);
                 }
+
+
                 return $employeeUpdated;
             }
-        } catch (\Throwable $th) {
+        } catch (\Exception $th) {
             return $th->getMessage();
         }
     }
@@ -98,6 +103,33 @@ class EmployeeRepo extends BaseRepository
         try {
             $emp = $this->model->with(['assets' => ['category', 'attributes'], 'reportingManager:id,first_name,last_name,img'])->find($id);
             return $emp;
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function assignedEmployeeEodLogs($employee)
+    {
+        try {
+            // return DB::table('user_logs')
+            //     ->whereIn('user_id', function ($query) use ($employee) {
+            //         $query->select('id')
+            //             ->from('users')
+            //             ->where('type', 'eod')
+            //             ->whereIn('employee_id', $employee->reportingManager->pluck('id'));
+            //     })->get();
+
+
+            $baseUrl = config('app.url') . '/public/storage/';
+
+            return DB::table('user_logs')
+                ->join('users', 'user_logs.user_id', '=', 'users.id')
+                ->join('employees', 'users.employee_id', '=', 'employees.id')
+                ->where('user_logs.type', 'eod')
+                ->whereIn('users.employee_id', $employee->reportingManager->pluck('id'))
+                ->select('user_logs.*', DB::raw("CONCAT('$baseUrl', employees.img) AS img_url"))
+                ->orderBy('created_at', 'desc')
+                ->get();
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

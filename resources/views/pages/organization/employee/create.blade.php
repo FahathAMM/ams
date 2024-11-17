@@ -1,10 +1,6 @@
 @extends('layout.app')
 @section('title', $titleName)
 @section('content')
-    @push('styles')
-    @endpush
-
-
 
     <div class="page-content">
         <div class="container-fluid">
@@ -60,9 +56,10 @@
                                         <h5 class="card-title mb-0">Complete Your Profile</h5>
                                     </div>
                                     <div class="flex-shrink-0">
-                                        <a href="javascript:void(0);" class="badge bg-light text-primary fs-12"><i
-                                                class="ri-edit-box-line align-bottom me-1"></i>
-                                            Edit</a>
+                                        <a href="javascript:void(0);" class="badge bg-light text-primary fs-12">
+                                            <i class="ri-edit-box-line align-bottom me-1"></i>
+                                            Edit
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="progress animated-progress custom-progress progress-label">
@@ -75,13 +72,13 @@
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Repoting Manager</h5>
+                                <h5 class="card-title mb-0">Repoting Managers</h5>
                             </div>
                             <!-- end card body -->
                             <div class="card-body">
                                 <div>
-                                    <x-input.select-group label="Employees" name="report_manager_id" itemText="full_name"
-                                        itemValue="id" :items="$employees" data-choices-search-true />
+                                    <x-input.select-group label="EOD Reporting Manager" name="report_manager_id"
+                                        itemText="full_name" itemValue="id" :items="$employees" data-choices-search-true />
                                 </div>
                             </div>
                         </div>
