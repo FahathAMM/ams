@@ -11,7 +11,6 @@
     {{-- <pre>{{ json_encode($assets, JSON_PRETTY_PRINT) }}</pre> --}}
 
     <div class="card-body">
-        dd
         <ul class="nav nav-pills nav-customs d-flex justify-content-center nav-danger mb-3" role="tablist">
             @forelse ($assets as $key => $ass)
                 <li class="nav-item">
