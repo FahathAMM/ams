@@ -14,7 +14,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link fs-14" data-bs-toggle="tab" href="#assets" role="tab">
+            <a class="nav-link fs-14" data-bs-toggle="tab" href="#employee-assets" role="tab">
                 <i class="ri-price-tag-line d-inline-block d-md-none"></i> <span
                     class="d-none d-md-inline-block">Assets</span>
             </a>

@@ -5,7 +5,7 @@
     @endpush
     <div class="page-content">
         <div class="container-fluid">
-            <div class="row" id="role-card-area">
+            <div class="row" id="appartment-card-area">
                 @foreach ($apartments as $apt)
                     <div class="col-xxl-3 col-md-4">
                         <x-card.card-apartment :apartmentName="$apt->name" color="warning" :apartmentId="$apt->id" :item="$apt"
@@ -60,7 +60,6 @@
                     </div>
                 </form>
             </x-modal.common>
-
         </div>
     </div>
 
@@ -165,7 +164,6 @@
                 var url = form.getAttribute('action');
                 var method = form.getAttribute('method');
                 var payload = new FormData(form);
-                console.log(payload);
 
                 const options = {
                     contentType: 'multipart/form-data',
@@ -180,12 +178,11 @@
                     payload,
                     options,
                     (response) => {
-                        console.log('Success:', response.status);
                         if (response.status) {
                             $("#apartment-form :input").val("");
                             eLoading('sbtBtn')
-                            // refreshContent('{{ url('administration/role') }}', 'role-card-area');
-                            // closeModal('addRoleModal');
+                            refreshContent('{{ url('roomease/apartment') }}', 'appartment-card-area');
+                            closeModal('addRoleModal');
                             alertNotify(response.message, 'success')
                         } else {
                             associateErrors(response.errors, 'apartment-form');
@@ -200,10 +197,8 @@
 
             function update() {
                 sLoading('sbtBtn')
-                let roleId = getValue('edit-role-id');
                 var form = document.getElementById('apartment-form');
-                // var url = '{{ url('role') }}/' + roleId + '/edit';
-                // var url = '{{ url('administration/role') }}/' + roleId;
+                var url = form.getAttribute('action');
                 var method = form.getAttribute('method');
                 var payload = new FormData(form);
 
@@ -221,12 +216,12 @@
                     options,
                     (response) => {
                         if (response.status) {
-                            refreshContent('{{ url('administration/role') }}', 'role-card-area');
+                            refreshContent('{{ url('roomease/apartment') }}', 'appartment-card-area');
                             closeModal('editRoleModal');
                             alertNotify(response.message, 'success')
                             eLoading('sbtBtn')
                         } else {
-                            associateErrors(response.errors, 'role-edit-form');
+                            associateErrors(response.errors, 'apartment-form');
                             eLoading('sbtBtn')
                         }
                     },
@@ -245,20 +240,18 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js"></script>
 
-
         <script>
             Push.create('Hello World!', {
-                    timeout: 2000000,
-                    requireInteraction: true,
-                    body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, expedita.',
-                    // onClick() {
-                    //     location.href = "/";
-                    // }
-                })
-                .catch(e => {
-                    // alert('please enable notification')
-                    console.log(e);
-                })
+                timeout: 2000000,
+                requireInteraction: true,
+                body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, expedita.',
+                // onClick() {
+                //     location.href = "/";
+                // }
+            }).catch(e => {
+                // alert('please enable notification')
+                console.log(e);
+            })
         </script>
     @endpush
 @endsection

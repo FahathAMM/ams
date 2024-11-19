@@ -120,6 +120,11 @@
                 var method = form.getAttribute('method');
                 var payload = new FormData(form);
 
+                console.log(url);
+                console.log(method);
+                console.log(payload);
+
+
                 const options = {
                     // contentType: 'application/json',
                     'contentType': 'multipart/form-data',

@@ -84,6 +84,10 @@ $('body').on('click', '.delete', function () {
                     if (deleteUrl.includes('administration/role')) {
                         refreshContent(deleteUrl, 'role-card-area');
                     }
+
+                    if (deleteUrl.includes('roomease/apartment')) {
+                        refreshContent(deleteUrl, 'appartment-card-area');
+                    }
                 }
             });
         }

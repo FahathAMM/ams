@@ -28,7 +28,7 @@
                     <i class="ri-pencil-line"></i>
                 </a>
 
-                <a href="#" delete-url="{{ url('administration/role') }}" delete-item="{{ $apartmentName }}"
+                <a href="#" delete-url="{{ url('roomease/apartment') }}" delete-item="{{ $apartmentName }}"
                     class="delete link-danger" id="{{ $apartmentId }}" title="Delete">
                     <i class="ri-delete-bin-5-line"></i>
                 </a>

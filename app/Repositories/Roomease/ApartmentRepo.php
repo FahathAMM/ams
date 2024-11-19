@@ -26,4 +26,17 @@ class ApartmentRepo extends BaseRepository
             return $th;
         }
     }
+
+    public function updateApartment($request, $apartment)
+    {
+        try {
+            $updated = $apartment->update($request->validated());
+
+            if ($updated) {
+                return $updated;
+            }
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
 }

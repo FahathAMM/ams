@@ -23,7 +23,7 @@
                                 <!--end card-->
                             </div>
                             <!--end tab-pane-->
-                            <div class="tab-pane fade" id="assets" role="tabpanel">
+                            <div class="tab-pane fade" id="employee-assets" role="tabpanel">
                                 <x-asset.show.asset :employee="$employee" />
                                 <!--end card-->
                             </div>

@@ -166,7 +166,6 @@ export function alertNotify(msg, status) {
         },
         onClick: function () {} // Callback after click
     }).showToast();
-
 }
 
 export function myfun() {

@@ -103,9 +103,7 @@
                     },
                     dataSrc: "data",
 
-                    columns: [
-
-                        {
+                    columns: [{
                             data: 'name',
                             name: 'name',
                         },
@@ -127,16 +125,14 @@
                         //     data: 'posts',
                         //     name: 'posts.title'
                         // },
-
                         {
-                            data: 'employee.first_name',
+                            data: 'employee',
                             name: 'employee.first_name',
-                            render: function(val, par2, row) {
-                                if (!val) return '';
-                                const lastName = row?.last_name ?? '';
-                                return `${val} ${lastName}`.trim();
+                            render: function(data, type, row) {
+                                return data && data.first_name ? data.first_name : 'N/A';
                             }
                         },
+
                         {
                             data: 'issue_date',
                             name: 'issue_date',

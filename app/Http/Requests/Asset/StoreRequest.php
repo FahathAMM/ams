@@ -36,7 +36,7 @@ class StoreRequest extends FormRequest
             'condition' => 'required',
             'warranty_nfo' => 'nullable',
             'description' => 'nullable',
-            'employee_id' => "required",
+            'employee_id' => "nullable",
         ];
     }
 }

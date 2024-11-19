@@ -62,39 +62,29 @@ class ApartmentController extends Controller
 
     public function edit(string $id)
     {
-        return  $this->response($this->modelName . ' created successfully', ['data' => $id], true);
+        return $this->response($this->modelName . ' created successfully', ['data' => $id], true);
     }
 
-    public function update(UpdateRequest $request, Role $role)
+    public function update(UpdateRequest $request, Apartment $apartment)
     {
         try {
-            $update = $role->update(['name' => $request->name]);
+            $updated = $this->repo->updateApartment($request, $apartment);
 
-            if ($update) {
-                logActivity('Role Update', "Role ID " . $role->id, 'Update');
-                if ($request->has('assignedTo')) {
-                    $role->users()->detach(); // Detach all users from the role
-                    foreach ($request->assignedTo as $key => $userId) {
-                        $user = User::find($userId);
-                        $user->assignRole($request->name);
-                    }
-                }
-                return  $this->response($this->modelName . ' update successfully', ['data' => $update], true);
+            if ($updated) {
+                logActivity('Apartment Create', "Apartment ID " . $apartment->id, 'Update');
+                return  $this->response($this->modelName . ' update successfully', ['data' => $updated], true);
             }
         } catch (\Throwable $th) {
             return  $this->response($th->getMessage(), null, false);
         }
     }
 
-    public function destroy(Role $role)
+    public function destroy(Apartment $apartment)
     {
         try {
-            // Project Manager
-            $deleted = $role->delete();
+            $deleted = $apartment->delete();
             if ($deleted) {
-
-                logActivity('Role Delete', "Role ID " . $role->id, 'Delete');
-
+                logActivity('Apartment Delete', "Apartment ID " . $apartment->id, 'Delete');
                 return $this->response($this->modelName . ' successfully deleted.', $deleted, true);
             } else {
                 return $this->response($this->modelName . ' cannot deleted.', null, false);
