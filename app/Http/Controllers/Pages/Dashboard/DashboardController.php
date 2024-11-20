@@ -47,14 +47,20 @@ class DashboardController extends Controller
             ->selectRaw("'Total Employees' as title, count(*) as value, 'text-success' as percentageClass, 'bx-dollar-circle' as icon, 'bg-success-subtle' as iconBg, 'text-success' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")
             ->unionAll(
                 DB::table('employee_report')
-                    ->selectRaw("'Total Assigned Employees' as title, count(*) as value, '' as percentageClass, 'bx-user-circle' as icon, 'bg-success-subtle' as iconBg, 'text-success' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")->where('report_manager_id', currentUser()->employee->id)
-            )->unionAll(
+                    ->selectRaw("'Total Assigned Employees' as title, count(*) as value, '' as percentageClass, 'bx-user-circle' as icon, 'bg-success-subtle' as iconBg, 'text-success' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")
+                    ->when(isset(currentUser()->employee->id), function ($query) {
+                        $query->where('report_manager_id', currentUser()->employee->id);
+                    })
+            )
+            ->unionAll(
                 DB::table('customers')
                     ->selectRaw("'Total Customers' as title, count(*) as value, '' as percentageClass, 'bx-user-circle' as icon, 'bg-success-subtle' as iconBg, 'text-success' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")
-            )->unionAll(
+            )
+            ->unionAll(
                 DB::table('customers')
                     ->selectRaw("'Total Customers' as title, count(*) as value, '' as percentageClass, 'bx-user-circle' as icon, 'bg-success-subtle' as iconBg, 'text-success' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")
-            )->get();
+            )
+            ->get();
 
         $dashboardData = $counts->map(function ($item) {
             return [
@@ -76,6 +82,10 @@ class DashboardController extends Controller
 
     public function getEodChartByEmployee()
     {
+        if (!isset(currentUser()->employee->id)) {
+            return response()->json(['status' => false]);
+        }
+
         $empId = currentUser()->employee->id;
         $eodChart = Task::join('employees', 'tasks.employee_id', '=', 'employees.id')
             ->where('tasks.report_manager_id', $empId)
@@ -121,7 +131,7 @@ class DashboardController extends Controller
                 'data' => $seriesData,
             ];
         }
-        return response()->json(['series' => $series, 'months' => $months]);
+        return response()->json(['series' => $series, 'months' => $months, 'status' => true]);
     }
 
     private function getUserActivites()

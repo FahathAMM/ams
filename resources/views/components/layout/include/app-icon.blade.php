@@ -6,7 +6,8 @@
                 <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="22" />
             </span>
             <span class="logo-lg">
-                {{-- <img src="{{ url('/assets/images/logo-dark.png') }}" alt="" height="17" /> --}}
+
+                <img src="{{ asset('/assets/images/app-logo.png') }}" alt="" height="45" />
                 {{-- <img src="{{ url('/assets/images/e-logo.png') }}" alt="" height="17" /> --}}
                 {{-- <label style="font-size: 30px"><b>AMS</b></label> --}}
             </span>

@@ -65,7 +65,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('administration/user-activity', [UserController::class, 'userActivity']);
 
-
     Route::resource('organization/employee', EmployeeController::class);
 
     Route::resource('organization/customer', CustomerController::class);

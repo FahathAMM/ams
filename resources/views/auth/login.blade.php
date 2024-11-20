@@ -17,7 +17,7 @@
                                 <div class="p-lg-5 p-4">
                                     <div>
                                         <h5 class="text-primary">Welcome Back !</h5>
-                                        <p class="text-muted">Sign in to continue to E-Com.</p>
+                                        <p class="text-muted">Sign in to continue to SmartDesk.</p>
                                     </div>
 
                                     <div class="mt-4">

@@ -151,6 +151,12 @@
 
             let res = ajaxRequest(url = "{{ url('administration/employee-eod-chart') }}");
 
+            if (!res.status) {
+                return;
+            }
+
+            console.log('res ', res);
+
             var options = {
                 series: res.series,
                 chart: {

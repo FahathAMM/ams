@@ -193,7 +193,7 @@
                         </div>
                         <!-- end card -->
 
-                        <div class="card">
+                        <div class="card d-none">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Assign Employee</h5>
                             </div>
