@@ -15,7 +15,8 @@
 
             <form id="task-form" method="POST" action="{{ route('eodreport.store') }}" autocomplete="off"
                 class="needs-validation1" novalidate1 enctype="multipart/form-data">
-                <input type="hidden" name="repoting_manager_id" value="{{ $repotingManagers->reportManager[0]->id }}">
+                <input type="hidden" name="repoting_manager_id" id="repoting_manager_id"
+                    value="{{ $repotingManagers->reportManager[0]->id ?? '' }}">
                 <input type="hidden" name="date" value="{{ $date }}">
                 @csrf
 
@@ -245,6 +246,17 @@
 
 
             function store() {
+
+                let reportingMangerId = getValue('repoting_manager_id');
+
+                if (!reportingMangerId) {
+                    console.log(1);
+                    alertNotify(
+                        'We could not find your reporting manager. If one has not been assigned, please assign one and try again.',
+                        'error')
+                    return;
+                }
+
                 $('#new-content').html($('.ck-content').html());
                 var form = document.getElementById('task-form');
                 var url = form.getAttribute('action');
