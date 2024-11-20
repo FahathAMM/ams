@@ -9,9 +9,9 @@
     <meta content="F2 Studio" name="description" />
     <meta content="Themesbrand" name="author" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title') | AMS</title>
+    <title>@yield('title') | Smark Desk</title>
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
-    <link rel="shortcut icon" href="{{ url('/assets/images/favicon.ico') }}" />
+    <link rel="shortcut icon" href="{{ asset('/assets/images/favicon.ico') }}" />
 
     @livewireStyles
 
