@@ -10,6 +10,7 @@
     'itemValue' => '',
     'textJoin' => '',
     'placeholder' => 'Select',
+    'groupStyle' => '',
 ])
 
 @php
@@ -18,7 +19,7 @@
     $isRequired = $required ? 'required' : '';
 
 @endphp
-<div class="form-group">
+<div class="form-group" style="{{ $groupStyle }}">
     @if (isset($label) && $label != '')
         <label for="{{ $name }}" id='{{ "lbl-$name" }}' for="{{ $name }}" class="form-label">
             {{ $label }}

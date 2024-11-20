@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use App\Models\Branch\Branch;
 use Yajra\DataTables\DataTables;
 use App\Models\Employee\Employee;
-use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Models\Department\Department;

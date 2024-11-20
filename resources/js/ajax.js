@@ -16,13 +16,13 @@ export function sendData(url = null, payload = null, options = null, successCall
         // return;
     }
 
-
     if (options && options.headers) {
         headers = {
             ...headers,
             ...options.headers
         };
     }
+    // console.log(headers);
 
     const config = {
         method: options && options.method ? options.method : 'POST',
@@ -35,6 +35,7 @@ export function sendData(url = null, payload = null, options = null, successCall
     } else {
         config['body'] = body;
     }
+    // console.log(config);
 
     fetch(url, config)
         .then(response => {

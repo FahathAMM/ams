@@ -6,11 +6,13 @@ use App\Models\Asset\Asset;
 use Illuminate\Http\Request;
 use App\Models\Asset\Attribute;
 use App\Models\Employee\Employee;
+use Illuminate\Support\Facades\DB;
 use App\Models\asset\AssetCategory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Asset\StoreRequest;
 use App\Http\Requests\Asset\UpdateRequest;
 use App\Repositories\Organization\AssetRepo;
+use App\Http\Requests\Asset\StoreAssignRequest;
 
 class AssetController extends Controller
 {
@@ -32,9 +34,6 @@ class AssetController extends Controller
 
     public function index(Request $request)
     {
-        // $asset = $this->repo->query();
-        // return  $asset = $asset->with('category', 'employee')->get();
-
         if ($request->ajax()) {
             $permissions = $this->repo->getAccessPermission();
             $asset = $this->model->query();
@@ -59,6 +58,88 @@ class AssetController extends Controller
         return view('pages.organization.asset.index', [
             'title' =>   $this->modelName,
         ]);
+    }
+
+    public function assetAssign(Request $request)
+    {
+
+        $employeeId = 11;
+
+        // $assets = DB::table('assets')
+        //     ->select('id as value', 'name as text', DB::raw('IF(employee_id IS NULL OR employee_id = 0 OR employee_id = ?, false, true) AS selected'))
+        //     ->setBindings([$employeeId])
+        //     ->get();
+
+        // $assignedAssets = DB::table('assets')
+        //     ->select('id as value', 'name as text', DB::raw('IF(employee_id IS NULL OR employee_id = 0, false, true) AS selected'))
+        //     ->where(function ($query) {
+        //         $query->whereNull('employee_id')
+        //             ->orWhere('employee_id', 0);
+        //     })->get();
+
+        // $notAssignedAssets = DB::table('assets')
+        //     ->select('id as value', 'name as text', DB::raw('IF(employee_id IS NULL OR employee_id = 0, false, true) AS selected'))
+        //     ->where('employee_id', $employeeId)->get();
+        // // ->toSql();
+
+
+        // return [
+        //     ...$assignedAssets,
+        //     ...$notAssignedAssets,
+        // ];
+
+
+        $employees = Employee::get();
+        $assets = Asset::get();
+
+        return view('pages.organization.asset.asset-assign', [
+            'title' =>   'Asset Assign',
+            'employees' =>   $employees,
+            'assets' =>   $assets,
+        ]);
+    }
+
+    public function getAssetAssignByEmployee(Request $request)
+    {
+        try {
+            $assignedAssets = DB::table('assets')
+                ->select('id as value', 'name as text', DB::raw('IF(employee_id IS NULL OR employee_id = 0, false, true) AS selected'))
+                ->where(function ($query) {
+                    $query->whereNull('employee_id')
+                        ->orWhere('employee_id', 0);
+                })->get();
+
+            $notAssignedAssets = DB::table('assets')
+                ->select('id as value', 'name as text', DB::raw('IF(employee_id IS NULL OR employee_id = 0, false, true) AS selected'))
+                ->where('employee_id', $request->employeeId)->get();
+
+            $assets = [
+                ...$assignedAssets,
+                ...$notAssignedAssets,
+            ];
+
+            return  $this->response($this->modelName . '', ['assets' => $assets], true);
+        } catch (\Throwable $th) {
+            // throw $th;
+            return  $this->response($th->getMessage(), null, false);
+        }
+    }
+
+    public function assignedAssetStore(StoreAssignRequest $request)
+    {
+        $selectedAssetsArr  = $request->selectedAssetsArr;
+        $employee_id  = $request->employee_id;
+
+        try {
+            $updated = Asset::whereIn('id', $selectedAssetsArr)->update(['employee_id' => $employee_id]);
+
+            if ($updated) {
+                return  $this->response($this->modelName . ' updated successfully', ['data' => $updated], true);
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+            return  $this->response($th->getMessage(), null, false);
+        }
     }
 
     public function create(Request $request)

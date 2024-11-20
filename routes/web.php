@@ -61,15 +61,22 @@ Route::middleware('auth')->group(function () {
     Route::resource('administration/permission', PermissionController::class);
     Route::resource('administration/user', UserController::class);
     Route::resource('administration/setting', SettingController::class);
+    Route::get('administration/employee-eod-chart', [DashboardController::class, 'getEodChartByEmployee']);
 
     Route::get('administration/user-activity', [UserController::class, 'userActivity']);
 
-    Route::get('administration/employee-eod-chart', [DashboardController::class, 'getEodChartByEmployee']);
 
     Route::resource('organization/employee', EmployeeController::class);
+
     Route::resource('organization/customer', CustomerController::class);
+
     Route::resource('assets/asset', AssetController::class);
+    Route::get('assets/asset-assign', [AssetController::class, 'assetAssign']);
+    Route::post('assets/store-asset-assign', [AssetController::class, 'assignedAssetStore']);
+    Route::get('assets/asset-assign-by-employee', [AssetController::class, 'getAssetAssignByEmployee']);
+
     Route::resource('organization/branch', BranchController::class);
+
     Route::resource('organization/department', DepartmentController::class);
 
     Route::resource('roomease/apartment', ApartmentController::class);

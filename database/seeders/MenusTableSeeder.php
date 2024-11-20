@@ -135,6 +135,17 @@ class MenusTableSeeder extends Seeder
                 'icon' => ' ri-computer-line',
             ],
 
+            [
+                'menu_header_id' => $menuHeaderAms->id,
+                'name1' => 'Asset Assign',
+                'name2' => 'Asset Assign',
+                'sequence' => '2',
+                'page_url' => 'assets/asset-assign',
+                'is_submenu_available' => 0,
+                'is_active' => 1,
+                'icon' => ' ri-computer-line',
+            ],
+
             //menuHeaderWrkbase
 
             [

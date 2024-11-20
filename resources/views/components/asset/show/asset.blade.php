@@ -32,32 +32,6 @@
             @endforeach
         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         {{-- <!-- Nav tabs -->
         <ul class="nav nav-pills nav-customs nav-danger mb-3" role="tablist">
             <li class="nav-item">
