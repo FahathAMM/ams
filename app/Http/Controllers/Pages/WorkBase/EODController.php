@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Pages\WorkBase;
 
 use App\Models\User;
+use App\Models\Task\Task;
 use Illuminate\Http\Request;
+use App\Models\Customer\Customer;
 use App\Models\Employee\Employee;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Employee\UpdateRequest;
-use App\Http\Requests\Task\StoreRequest;
-use App\Models\Customer\Customer;
-use App\Models\Task\Task;
 use App\Repositories\WorkBase\TaskRepo;
+use App\Http\Requests\Task\StoreRequest;
+use App\Http\Requests\Employee\UpdateRequest;
 
 class EODController extends Controller
 {
@@ -37,10 +38,8 @@ class EODController extends Controller
 
         return view('pages.workbase.eod.index', [
             'employees' =>   $this->model->get(),
-            'roles' =>   Role::get(),
             'title' =>   $this->modelName,
             'schedules' =>   $task,
-            'userWithRoles' => User::with('roles')->get(),
         ]);
     }
 
@@ -59,6 +58,57 @@ class EODController extends Controller
             'empId' =>   $empId,
         ]);
     }
+
+    public function EODAssign(Request $request)
+    {
+        $employees = Employee::get();
+
+        return view('pages.workBase.eod.eod-assign', [
+            'title' =>   'Assign EOD Reporting Manager',
+            'employees' =>   $employees,
+        ]);
+    }
+
+    public function assignedEODStore(Request $request)
+    {
+        try {
+            $employee = Employee::find($request->reporting_manager_id);
+
+            $employee->reportingManager()->wherePivot('report_type', 'eod_report')->detach();
+            $updated = $employee->reportingManager()->attach($request->selectedEodEmployeessArr, ['report_type' => 'eod_report']);
+
+            return  $this->response($this->modelName . ' updated successfully', ['data' => $updated], true);
+        } catch (\Throwable $th) {
+            // throw $th;
+            return  $this->response($th->getMessage(), null, false);
+        }
+    }
+
+    public function getEmployeesAssignByEmployee(Request $request)
+    {
+        try {
+            $notAssignedEmployees = Employee::whereNotIn('id', function ($query) {
+                $query->select('employee_id')
+                    ->from('employee_report');
+            })->get(['id as value', 'username as text', DB::raw('false as selected')]);
+
+            $assignedEmployeesByReportManager = Employee::whereIn('id', function ($query) use ($request) {
+                $query->select('employee_id')->where('report_manager_id', $request->reporting_manager_id)
+                    ->from('employee_report');
+            })->get(['id as value', 'username as text', DB::raw('true as selected')]);
+
+            $eodEmployee = [
+                ...$notAssignedEmployees,
+                ...$assignedEmployeesByReportManager,
+            ];
+
+            return  $this->response($this->modelName . '', ['eodEmployee' => $eodEmployee], true);
+        } catch (\Throwable $th) {
+            throw $th;
+            return  $this->response($th->getMessage(), null, false);
+        }
+    }
+
 
     public function create(Request $request)
     {

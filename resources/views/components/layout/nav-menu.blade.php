@@ -27,11 +27,8 @@
                   </div>
               </div>
           </div>
-          <!-- /.modal-content -->
       </div>
-      <!-- /.modal-dialog -->
   </div>
-  <!-- /.modal -->
   <!-- ========== App Menu ========== -->
   <div class="app-menu navbar-menu">
       <!-- LOGO -->
@@ -59,8 +56,6 @@
               <i class="ri-record-circle-line"></i>
           </button>
       </div>
-
-      {{-- {{ '<pre>' . json_encode(menu(), JSON_PRETTY_PRINT) . '</pre>' }} --}}
 
       <div id="scrollbar">
           <div class="container-fluid">
@@ -92,7 +87,7 @@
                           <li class="nav-item">
                               <a class="nav-link menu-link fs-13" href="#{{ strtolower($headerMenu[$i]->name1) }}"
                                   data-bs-toggle="collapse" role="button" aria-expanded="false"
-                                  aria-controls="sidebarApps">
+                                  style="white-space: nowrap;" aria-controls="sidebarApps">
                                   <i class="ri-apps-2-line"></i>
                                   <span data-key="t-{{ $headerMenu[$i]->name1 }}">{{ $headerMenu[$i]->name1 }}</span>
                               </a>
@@ -103,16 +98,18 @@
                                               @if (!$detailMenu[$j]->is_submenu_available)
                                                   <li class="nav-item">
                                                       <a href="{{ url($detailMenu[$j]->page_url) }}"
-                                                          class="nav-link fs-13" data-key="t-analytics">
+                                                          style="white-space: nowrap;" class="nav-link fs-13"
+                                                          data-key="t-analytics">
                                                           <i class="{{ $detailMenu[$j]->icon }}"></i>
                                                           {{ $detailMenu[$j]->name1 }}
                                                       </a>
                                                   </li>
                                               @else
                                                   <li class="nav-item">
-                                                      <a href="#sidebarCalendar" class="nav-link fs-13"
-                                                          data-bs-toggle="collapse" role="button" aria-expanded="false"
-                                                          aria-controls="sidebarCalendar"
+                                                      <a href="#{{ strtolower($detailMenu[$j]->name1) }}"
+                                                          class="nav-link fs-13" data-bs-toggle="collapse"
+                                                          role="button" aria-expanded="false"
+                                                          aria-controls="sidebarCalendar" style="white-space: nowrap;"
                                                           data-key="t-{{ strtolower($detailMenu[$j]->name1) }}">
                                                           <i class="{{ $detailMenu[$j]->icon }}"></i>
                                                           {{ $detailMenu[$j]->name1 }}
@@ -145,78 +142,12 @@
                           </li>
                       @endif
                   @endfor
-
-                  <!-- end Dashboard Menu -->
-
-                  <!-- Sidebar -->
-
-                  {{-- <div id="scrollbar">
-                    <div class="container-fluid">
-                        <div id="two-column-menu"></div>
-                        <ul class="navbar-nav" id="navbar-nav">
-                            <li class="menu-title"><span data-key="t-menu">Menu</span></li>
-                            <li class="nav-item">
-                                <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse"
-                                    role="button" aria-expanded="false" aria-controls="sidebarDashboards">
-                                    <i class="ri-dashboard-2-line"></i>
-                                    <span data-key="t-dashboards">Dashboards</span>
-                                </a>
-                            </li>
-                            <!-- end Dashboard Menu -->
-                            <li class="nav-item">
-                                <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse"
-                                    role="button" aria-expanded="false" aria-controls="sidebarApps">
-                                    <i class="ri-apps-2-line"></i>
-                                    <span data-key="t-apps">Apps</span>
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarApps">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="dashboard-analytics.html" class="nav-link"
-                                                data-key="t-analytics">
-                                                Analytics
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#sidebarCalendar" class="nav-link" data-bs-toggle="collapse"
-                                                role="button" aria-expanded="false"
-                                                aria-controls="sidebarCalendar" data-key="t-calender">
-                                                Calendar
-                                            </a>
-                                            <div class="collapse menu-dropdown" id="sidebarCalendar">
-                                                <ul class="nav nav-sm flex-column">
-                                                    <li class="nav-item">
-                                                        <a href="apps-calendar.html" class="nav-link"
-                                                            data-key="t-main-calender">
-                                                            Main Calender
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a href="apps-calendar-month-grid.html" class="nav-link"
-                                                            data-key="t-month-grid">
-                                                            Month Grid
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- Sidebar -->
-                </div> --}}
-
               </ul>
           </div>
-          <!-- Sidebar -->
       </div>
 
 
 
       <div class="sidebar-background"></div>
   </div>
-  <!-- Left Sidebar End -->
-  <!-- Vertical Overlay-->
   <div class="vertical-overlay"></div>

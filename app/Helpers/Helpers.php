@@ -80,6 +80,8 @@ if (!function_exists('can')) {
         $LoggedUserAccesspermissions = collect(auth()->user()->getPermissionsViaRoles()->toArray())
             ->pluck('name')->unique()->values()->toArray();
 
+        // Log::info('can2', [$per]);
+
         return  in_array($per, $LoggedUserAccesspermissions);
     }
 }
@@ -91,19 +93,9 @@ if (!function_exists('currentUserID')) {
     }
 }
 
-// if (!function_exists('currentUser')) {
-//     function currentUser()
-//     {
-//         $user = auth()->user();
-//         // return  auth()->load('roles', 'employee');
-//     }
-// }
-
 if (!function_exists('currentUser')) {
     function currentUser()
     {
-
-        log::info('currentuser');
         $user = auth()->user();
 
         // Check if user is authenticated
@@ -124,6 +116,19 @@ if (!function_exists('fetchCurrentEmployeeWithReportingManagers')) {
 
         if ($empId) {
             return $emp = Employee::with(['reportManager:id,first_name,last_name,img'])->find($empId);
+        }
+
+        return abort(450);
+    }
+}
+
+if (!function_exists('currentEmployee')) {
+    function currentEmployee()
+    {
+        $empId = currentUser()->employee_id;
+
+        if ($empId) {
+            return $emp = Employee::find($empId);
         }
 
         return abort(450);

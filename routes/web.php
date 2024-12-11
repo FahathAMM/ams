@@ -1,16 +1,12 @@
 <?php
 
-use Livewire\Livewire;
-use Illuminate\Support\Facades\DB;
-use App\Models\Department\Department;
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Pages\EOD\EodLivewire;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Pages\Order\ImportController;
 use App\Http\Controllers\Pages\WorkBase\EODController;
-use App\Http\Controllers\Pages\Order\ShipmentController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\Pages\Organization\AssetController;
 use App\Http\Controllers\Pages\Roomease\ApartmentController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Pages\Administration\RoleController;
 use App\Http\Controllers\Pages\Administration\UserController;
 use App\Http\Controllers\Pages\Dashboard\DashboardController;
@@ -20,7 +16,9 @@ use App\Http\Controllers\Pages\Organization\EmployeeController;
 use App\Http\Controllers\Pages\Administration\SettingController;
 use App\Http\Controllers\Pages\Organization\DepartmentController;
 use App\Http\Controllers\Pages\Administration\PermissionController;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\Pages\Leave\LeaveController;
+use App\Http\Controllers\Pages\Leave\LeaveTypeController;
+use App\Http\Controllers\Pages\Roomease\RoomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +49,7 @@ Route::get('/', fn() =>  redirect(route('dashboard.index')));
 
 // });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'logged.session'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -62,6 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('administration/user', UserController::class);
     Route::resource('administration/setting', SettingController::class);
     Route::get('administration/employee-eod-chart', [DashboardController::class, 'getEodChartByEmployee']);
+    Route::get('administration/logged-user-tracking', [UserController::class, 'loggedUserTracking']);
 
     Route::get('administration/user-activity', [UserController::class, 'userActivity']);
 
@@ -79,13 +78,27 @@ Route::middleware('auth')->group(function () {
     Route::resource('organization/department', DepartmentController::class);
 
     Route::resource('roomease/apartment', ApartmentController::class);
+    Route::resource('roomease/room', RoomController::class);
 
     Route::resource('workbase/eodreport', EODController::class);
     Route::get('workbase/eodlist/{id?}', [EODController::class, 'EODList'])->name('eod.list');
+    Route::get('workbase/eod-assign', [EODController::class, 'EODAssign']);
+    Route::get('workbase/eod-assign-by-employee', [EODController::class, 'getEmployeesAssignByEmployee']);
+    Route::post('workbase/store-eod-reporting-assign', [EODController::class, 'assignedEODStore']);
+
+
+    Route::resource('leave/leave', LeaveController::class);
+    Route::resource('leave/leave-type', LeaveTypeController::class);
+    Route::get('leave/leave-list', [LeaveController::class, 'LeaveRequestList']);
+    Route::post('leave/response-leave', [LeaveController::class, 'responseAppliedLeaveByReportingManager']);
 });
+
+Route::get('reset-login-session/{username}', [AuthenticatedSessionController::class, 'resetLoginSession']);
+Route::post('reset-login-session/{username}', [AuthenticatedSessionController::class, 'resetLoginSessionSubmit']);
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/livewire.php';
+require __DIR__ . '/dev.php';
 
 
 Route::get('get-cards', [DashboardController::class, 'GetKPIs']);

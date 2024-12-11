@@ -25,7 +25,8 @@ return new class extends Migration
             $table->foreignId('apartment_id')->constrained('apartments')->onDelete('cascade');
             $table->string('room_number');
             $table->integer('floor');
-            $table->string('type');
+            $table->enum('type', ['Family', 'Bachelor'])->nullable(); // Enum type for bed type
+
             $table->boolean('is_occupied')->default(false);
             $table->string('description')->nullable();
             $table->timestamps();

@@ -68,6 +68,9 @@
 
     <!-- password-addon init -->
     <script src="{{ asset('assets/js/pages/password-addon.init.js') }}"></script>
+
+    @stack('scripts')
+
 </body>
 
 </html>

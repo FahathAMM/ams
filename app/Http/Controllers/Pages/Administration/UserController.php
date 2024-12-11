@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Pages\Administration;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use App\Models\Employee\Employee;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
-use App\Models\Employee\Employee;
+use App\Models\Administration\UserLoginActivityLog;
 
 class UserController extends Controller
 {
@@ -68,6 +69,76 @@ class UserController extends Controller
             'title' =>   $this->modelName,
             'headers' =>   $this->tableHeader(),
             'userWithRoles' => User::with('roles')->get(),
+        ]);
+    }
+
+    public function loggedUserTracking(Request $request)
+    {
+        if ($request->ajax()) {
+            $permissions = [
+                'isDelete' =>  false,
+                'isEdit' => false,
+                'isView' => false,
+                'isPrint' => false
+            ];
+
+
+            $loggedUserModel = UserLoginActivityLog::select([
+                'user_login_activity_logs.id', // Explicitly mention the table
+                'user_login_activity_logs.user_id',
+                'action as login_status',
+                'ip_address',
+                'device',
+                'os',
+                'browser',
+                'login_time',
+                'status',
+                DB::raw(
+                    "CONCAT(
+                        '<div class=\"d-flex align-items-center mb-3\">',
+                        '<div class=\"flex-shrink-0 avatar-sm\">',
+                        '<div class=\"avatar-title bg-light text-primary rounded-3\" style=\"font-size:30px\">',
+                        CASE
+                            WHEN device = 'Mobile' THEN '<i class=\"ri-smartphone-line\"></i>'
+                            WHEN device = 'Tablet' THEN '<i class=\"ri-tablet-line\"></i>'
+                            WHEN device = 'Desktop' THEN '<i class=\"ri-computer-line\"></i>'
+                            ELSE '<i class=\"ri-question-line\"></i>'
+                        END,
+                        '</div>',
+                        '</div>',
+                        '<div class=\"flex-grow-1 ms-3\">',
+                        '<h6>', device, '</h6>',
+                        '<p class=\"text-muted mb-0\">',
+                        'User ', ut.username, ' logged in successfully using <b>', IFNULL(browser, ''), '</b> on a running <b>', os,
+                        '</b><b>', DATE_FORMAT(login_time, '%M %d at %l:%i %p'), '</b> from the IP address <b>', ip_address, '</b>',
+                        '</p>',
+                        '</div>',
+                        '</div>'
+                    ) AS formatted_message"
+                )
+            ])
+                ->orderByDesc('login_time')
+                ->join('users as ut', 'ut.id', '=', 'user_login_activity_logs.user_id');
+
+
+            logActivity('Logged User History', 'Logged User History', 'View');
+
+            return Datatables::of($loggedUserModel)->addIndexColumn()
+                ->addColumn('action', function ($loggedUserModel) use ($permissions) {
+                    return actionBtns(
+                        $loggedUserModel->id,
+                        'user.edit',
+                        'user',
+                        '',
+                        $permissions
+                    );
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('pages/administration/user/logged-user-tracking', [
+            'title' =>   'Logged User History',
         ]);
     }
 

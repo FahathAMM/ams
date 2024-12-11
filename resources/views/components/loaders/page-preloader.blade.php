@@ -115,7 +115,7 @@
 
         function pagePreloader() {
             $('#status').fadeOut();
-            $('#loading').delay(5).fadeOut('slow');
+            $('#loading').delay(0.001).fadeOut('slow');
         }
 
 

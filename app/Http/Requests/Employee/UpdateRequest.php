@@ -43,8 +43,9 @@ class UpdateRequest extends FormRequest
             'joining_date' => 'required',
             'country' => 'required',
             'description' => "nullable",
+            'leave_types' => "nullable",
             'is_active' => "nullable",
-            'report_manager_id' => "required",
+            'report_manager_id' => "nullable",
             'password' => [
                 'nullable',
                 'string',
@@ -58,4 +59,11 @@ class UpdateRequest extends FormRequest
             ],
         ];
     }
+
+    // protected function prepareForValidation()
+    // {
+    //     $this->merge([
+    //         'leave_types' => '',
+    //     ]);
+    // }
 }

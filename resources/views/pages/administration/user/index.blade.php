@@ -1,18 +1,12 @@
 @extends('layout.app')
 @section('content')
     @push('styles')
-        <!--datatable css-->
         <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
-        <!--datatable responsive css-->
         <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
         <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
     @endpush
     <div class="page-content">
         <div class="container-fluid">
-
-            <!-- start page title -->
-            {{-- <x-breadcrumb title="Users" parent="Administration" /> --}}
-            <!-- end page title -->
 
             <div class="card" id="contactList">
                 <div class="card-header py-2">
@@ -42,10 +36,8 @@
                                 <x-btn.add-btn isAdd="true" routeName="user.create" title="Create User" />
                             </div>
                         </div>
-                        <!--end col-->
                     </div>
                 </div>
-                <!--end card-header-->
                 <div class="card-body">
                     <table id="datatable-crud" class="display table-sm table stripe dt-responsive table-bordered"
                         style="width:100%">
@@ -64,33 +56,19 @@
                         </tbody>
                     </table>
                 </div>
-                <!--end card-body-->
             </div>
-            <!--end card-->
 
         </div>
-        <!-- container-fluid -->
     </div>
-    <!-- End Page-content -->
 
 
     @push('scripts')
-        <!--datatable js-->
         <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
         <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 
         <script>
-            // $(function() {
-            //     loadTable();
-            //     const element = document.querySelector('.dataTables_length label select');
-            //     const choices = new Choices(element, {
-            //         searchEnabled: false
-            //     });
-            // });
-
             $(document).ready(function() {
-                // console.log('hello');
                 // console.log('jQuery:', typeof $);
                 // console.log('DataTable:', $.fn.DataTable ? 'Loaded' : 'Not Loaded');
 
@@ -110,9 +88,8 @@
                     stateSave: true,
                     "scrollY": "50vh",
                     ajax: {
-                        url: '{{ route('user.index') }}', // Replace with your route
+                        url: '{{ route('user.index') }}',
                         data: function(d) {
-                            // Additional data you want to send to the server
                             d.role = $('#choices-roles').val() || '-1';
                         }
                     },
@@ -129,18 +106,8 @@
                                     return val + ' ' + row?.last_name || '';
                                 }
                                 return val;
-                                // console.log(row.first_name, val);
-                                // console.log(typeof row.last_name, val);
                             }
                         },
-                        // {
-                        //     data: 'email_verified_at',
-                        //     name: 'email_verified_at',
-                        //     render: function(val, par2, row) {
-                        //         console.log(typeof val);
-                        //         return val
-                        //     }
-                        // },
                         {
                             data: 'username',
                             name: 'username'
@@ -158,17 +125,9 @@
                             name: 'is_active',
                             className: 'text-center',
                             render: function(value) {
-                                // return value
                                 return ActiveStatus(value)
                             }
                         },
-                        // {
-                        //     data: 'roles',
-                        //     name: 'roles',
-                        //     render: function(data) {
-                        //         return data.map(role => role.name).join(', ');
-                        //     },
-                        // },
                         {
                             data: 'action',
                             name: 'action',

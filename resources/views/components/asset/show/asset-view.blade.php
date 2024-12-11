@@ -182,14 +182,25 @@
                                             <div class="d-flex align-items-center">
                                                 <div class="d-flex flex-wrap gap-2 fs-15">
                                                     @php
-                                                        $tags = explode(',', $asset->tags[0]);
+                                                        $tags = [];
+                                                        if ($asset->tags) {
+                                                            $tags = explode(',', $asset->tags[0]);
+                                                        }
                                                     @endphp
-                                                    @foreach ($tags as $tag)
+                                                    {{--  @foreach ($tags as $tag)
                                                         <a href="javascript:void(0);"
                                                             class="badge bg-primary-subtle text-primary">
                                                             {{ $tag }}
                                                         </a>
-                                                    @endforeach
+                                                    @endforeach --}}
+                                                    @forelse  ($tags as $tag)
+                                                        <a href="javascript:void(0);"
+                                                            class="badge bg-primary-subtle text-primary">
+                                                            {{ $tag }}
+                                                        </a>
+                                                    @empty
+                                                        ffff
+                                                    @endforelse
                                                 </div>
                                             </div>
                                         </div>

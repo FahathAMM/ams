@@ -2,7 +2,9 @@
 @section('title', $title)
 @section('content')
 
-    <x-dashboard.dashboard :userLogs="$userLogs" :eodChart="$eodChart" />
+    {{-- <x-dashboard.dashboard :userLogs="$userLogs" :eodChart="$eodChart" /> --}}
+
+    <x-dashboard.employee-dashboard :userLogs="$userLogs" :eodChart="$eodChart" />
 
     {{-- <x-dashboard.user-dash :userLogs="$userLogs" /> --}}
 

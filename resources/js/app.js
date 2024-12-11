@@ -27,6 +27,12 @@ const functionsToAssign = [
     'clearForm',
     'getValue',
     'setValue',
+    'setImage',
+    'setHtml',
+    'setAttribute',
+
+    'updateSelectedValue',
+
     'setValueByName',
     'sAlert',
     'sLoading',

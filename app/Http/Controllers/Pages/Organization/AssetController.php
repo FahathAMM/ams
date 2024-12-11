@@ -62,33 +62,6 @@ class AssetController extends Controller
 
     public function assetAssign(Request $request)
     {
-
-        $employeeId = 11;
-
-        // $assets = DB::table('assets')
-        //     ->select('id as value', 'name as text', DB::raw('IF(employee_id IS NULL OR employee_id = 0 OR employee_id = ?, false, true) AS selected'))
-        //     ->setBindings([$employeeId])
-        //     ->get();
-
-        // $assignedAssets = DB::table('assets')
-        //     ->select('id as value', 'name as text', DB::raw('IF(employee_id IS NULL OR employee_id = 0, false, true) AS selected'))
-        //     ->where(function ($query) {
-        //         $query->whereNull('employee_id')
-        //             ->orWhere('employee_id', 0);
-        //     })->get();
-
-        // $notAssignedAssets = DB::table('assets')
-        //     ->select('id as value', 'name as text', DB::raw('IF(employee_id IS NULL OR employee_id = 0, false, true) AS selected'))
-        //     ->where('employee_id', $employeeId)->get();
-        // // ->toSql();
-
-
-        // return [
-        //     ...$assignedAssets,
-        //     ...$notAssignedAssets,
-        // ];
-
-
         $employees = Employee::get();
         $assets = Asset::get();
 

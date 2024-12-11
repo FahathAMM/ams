@@ -355,7 +355,7 @@
                         if (response.status) {
                             alertNotify(response.message, 'success')
                             $("#asset-form :input").val("");
-                            associateErrors(response.errors, 'asset-form');
+                            associateErrors([], 'asset-form');
                         } else {
                             associateErrors(response.errors, 'asset-form');
                         }

@@ -82,6 +82,27 @@ export function setValueByName(field, val) {
     $(`textarea[name="${field}"]`).val(val);
 }
 
+export function setImage(field, src) {
+    return $(`#${field}`).attr('src', src);
+}
+
+export function setHtml(field, htmlContent) {
+    return $(`#${field}`).html(htmlContent);
+}
+
+export function setAttribute(field, attr, value) {
+    return $(`#${field}`).attr(attr, value);
+}
+
+export function updateSelectedValue(idName, value) {
+    const updateFunctionName = `updateSelectedValue_${idName}`;
+    if (typeof window[updateFunctionName] === 'function') {
+        window[updateFunctionName](value);
+    } else {
+        console.error(`Function ${updateFunctionName} is not defined`);
+    }
+}
+
 export function clearForm(form) {
     $(`#${form}`)[0].reset();
 }

@@ -5,8 +5,7 @@
    ])
 
 
-   <div class="modal fade zoomIn" id="{{ $idName }}" tabindex="-1" aria-labelledby="{{ $idName }}Label"
-       aria-hidden="true">
+   <div class="modal fade zoomIn" id="{{ $idName }}" tabindex="-1" aria-labelledby="{{ $idName }}Label">
        <div class="modal-dialog modal-dialog-centered {{ $size }}">
            <div class="modal-content border-0">
                <div class="modal-header p-3 bg-info-subtle">

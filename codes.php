@@ -284,3 +284,40 @@ return count($t);
 });
 
 ===============code peromance============
+
+// $created->reportManager()->attach($request->report_manager_id, ['report_type' => 'eod_report']);
+// $created->reportManager()->attach(['employee_id' => $created->id, 'report_manager_id' => $request->report_manager_id]);
+
+// if ($request->has('report_manager_id')) {
+// // $employee->reportManager()->sync([$request->report_manager_id]);
+// $employee->reportManager()->sync([$request->report_manager_id => ['report_type' => 'eod_report']]);
+// }
+
+// return DB::table('user_logs')
+// ->whereIn('user_id', function ($query) use ($employee) {
+// $query->select('id')
+// ->from('users')
+// ->where('type', 'eod')
+// ->whereIn('employee_id', $employee->reportingManager->pluck('id'));
+// })->get();
+
+
+===========================================
+// $model = LeaveRequest::query()
+// ->select(
+// 'leave_requests.body',
+// 'leave_requests.request_days',
+// 'leave_requests.start_date',
+// 'leave_requests.end_date',
+// 'leave_requests.applied_employee_id',
+// 'leave_requests.leave_type_id',
+// 'lt.*',
+// 'employee_leave_request.status',
+// 'employee_leave_request.rejected_reason',
+// 'employee_leave_request.approved_reason'
+// )
+// ->join('leave_types as lt', 'lt.id', '=', 'leave_requests.leave_type_id')
+// ->join('employee_leave_request', 'employee_leave_request.leave_request_id', '=', 'leave_requests.id')
+// ->where('employee_leave_request.employee_id', CurrentUser()->employee_id)
+// ->paginate(15);
+===========================================

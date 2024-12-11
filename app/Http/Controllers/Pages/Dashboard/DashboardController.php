@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Pages\Dashboard;
 
 use Exception;
 use Faker\Factory;
+use App\Models\Task\Task;
+use App\Models\Leave\LeaveType;
 use App\Models\Customer\Customer;
 use App\Models\Employee\Employee;
+use App\Models\Leave\LeaveRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Task\Task;
 
 class DashboardController extends Controller
 {
@@ -26,13 +28,12 @@ class DashboardController extends Controller
 
     public function index()
     {
-        // return $this->GetKPIs();
 
-        // return fetchCurrentEmployeeWithAssignedReportingEmployees();
-        // return currentUser()->getPermissionsViaRoles();
+        //         $leaveRequest = LeaveRequest::find($request->leave_request_id);
+        // return $leaveRequest;
+
 
         $userLogs = $this->getUserActivites();
-
         return view('pages/dashboard/index', [
             'title' => $this->modelName,
             'userLogs' => $userLogs,
@@ -44,21 +45,21 @@ class DashboardController extends Controller
     public function GetKPIs()
     {
         $counts = DB::table('employees')
-            ->selectRaw("'Total Employees' as title, count(*) as value, 'text-success' as percentageClass, 'bx-dollar-circle' as icon, 'bg-success-subtle' as iconBg, 'text-success' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")
+            ->selectRaw("'Total Employees' as title, count(*) as value, 'text-info' as percentageClass, 'fas fa-users' as icon, 'bg-info-subtle' as iconBg, 'text-info' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")
             ->unionAll(
                 DB::table('employee_report')
-                    ->selectRaw("'Total Assigned Employees' as title, count(*) as value, '' as percentageClass, 'bx-user-circle' as icon, 'bg-success-subtle' as iconBg, 'text-success' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")
+                    ->selectRaw("'Total Assigned Employees' as title, count(*) as value, '' as percentageClass, 'fas fa-user-friends' as icon, 'bg-success-subtle' as iconBg, 'text-success' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")
                     ->when(isset(currentUser()->employee->id), function ($query) {
                         $query->where('report_manager_id', currentUser()->employee->id);
                     })
             )
             ->unionAll(
                 DB::table('customers')
-                    ->selectRaw("'Total Customers' as title, count(*) as value, '' as percentageClass, 'bx-user-circle' as icon, 'bg-success-subtle' as iconBg, 'text-success' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")
+                    ->selectRaw("'Total Customers' as title, count(*) as value, '' as percentageClass, 'fas fa-user-tie' as icon, 'bg-success-subtle' as iconBg, 'text-success' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")
             )
             ->unionAll(
                 DB::table('customers')
-                    ->selectRaw("'Total Customers' as title, count(*) as value, '' as percentageClass, 'bx-user-circle' as icon, 'bg-success-subtle' as iconBg, 'text-success' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")
+                    ->selectRaw("'Total Customers' as title, count(*) as value, '' as percentageClass, 'fas fa-user-tie' as icon, 'bg-success-subtle' as iconBg, 'text-success' as iconColor, '' as percentage, '' as valueSuffix, '#' as linkUrl")
             )
             ->get();
 
@@ -194,5 +195,74 @@ class DashboardController extends Controller
                 'status' => $faker->randomElement(['wip', 'pending', 'completed']),
             ]);
         }
+    }
+
+    public function tips()
+    {
+        // return $this->GetKPIs();
+
+        // return fetchCurrentEmployeeWithAssignedReportingEmployees();
+        // return currentUser()->getPermissionsViaRoles();
+
+        // return customEncrypt('Fahath@123');
+        // return request()->ip();
+
+        // return  $hh =  LeaveType::pluck('id')->toArray();
+        // return   $jj = json_encode(implode(',', LeaveType::pluck('id')->toArray()));
+        // $jj = implode(',', LeaveType::pluck('id')->toArray());
+
+        // $jj = json_encode(
+        //     LeaveType::pluck('id')->map(fn($id) => (string)$id)->toArray()
+        // );
+
+        // return  explode(',', $jj);
+        // Fetch all leave types as a collection
+        // $leaveTypes = LeaveType::all();
+
+        // // Prepare leave balance data in bulk
+        // $leaveBalances = $leaveTypes->map(function ($type) {
+        //     return [
+        //         'user_id' => 1,
+        //         'leave_type_id' => $type->id,
+        //         'remaining_days' => $type->number_of_days,
+        //         'created_at' => now(),
+        //         'updated_at' => now(),
+        //     ];
+        // })->toArray();
+
+        // // Insert all leave balances at once
+        // DB::table('leave_balances')->insert($leaveBalances);
+
+
+
+        // Employee::where('emp_number', 'EMP1019d')->delete();
+        // Employee::where('emp_number', 'EMP1019d')->delete();
+        // return Employee::create(
+        //     [
+        //         'first_name' => 'Suranjith',
+        //         'last_name' => '',
+        //         'username' => 'Suranjithd',
+        //         'password' => 'Suranjith@123',
+        //         'emp_number' => 'EMP1019d',
+        //         'designation' => 'Customer Support',
+        //         'phone_number' => '123-456-7809',
+        //         'email' => 'suranjdith@example.com',
+        //         'branch_id' => 3,
+        //         'department_id' => 'Support',
+        //         'joining_date' => '2024-04-05',
+        //         'country' => 'Sri Lanka',
+        //         'img' => null,
+        //         'cover_img' => 'cover_img_path_18',
+        //         'leave_types' => '',
+        //         'description' => 'Dedicated to providing excellent customer support.',
+        //     ],
+        // );
+
+        // return  $notAssignedEmployees = Employee::whereNotIn('id', function ($query) {
+        //     $query->select('employee_id')
+        //         ->from('employee_report');
+        // })
+        //     ->toSql();
+        // ->get(['id as value', 'username as text', DB::raw('false as selected')]);
     }
 }

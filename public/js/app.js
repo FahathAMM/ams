@@ -58,6 +58,7 @@ const functionsToAssign = [
     'clearField',
     'getValue',
     'setValue',
+    'updateSelectedValue',
     'sAlert',
     'sLoading',
     'eLoading',

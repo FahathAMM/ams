@@ -1,20 +1,20 @@
-<div id="cards-container" class="row">
+<div id="cards-container1" class="row">
 </div>
 
 @push('scripts')
     <script>
         $(document).ready(function() {
-            fetchCardData();
+            fetchCardData1();
         });
 
         // Fetch card data
-        function fetchCardData() {
+        function fetchCardData1() {
             $.ajax({
                 url: "{{ url('get-cards') }}",
                 method: 'GET',
                 success: function(data) {
-                    renderCards(data);
-                    initializeKpiCountAnimation();
+                    renderCards1(data);
+                    initializeKpiCountAnimation1();
                 },
                 error: function(xhr, status, error) {
                     console.error('Error fetching cards:', error);
@@ -23,16 +23,16 @@
         }
 
         // Render card HTML
-        function renderCards(data) {
+        function renderCards1(data) {
             let cardsHtml = '';
             data.forEach(card => {
-                cardsHtml += generateCardHtml(card);
+                cardsHtml += generateCardHtml1(card);
             });
-            $('#cards-container').html(cardsHtml);
+            $('#cards-container1').html(cardsHtml);
         }
 
         // Generate individual card HTML
-        function generateCardHtml(card) {
+        function generateCardHtml1(card) {
             return `
             <div class="col-xl-3 col-md-6">
                 <div class="card card-animate">
@@ -70,23 +70,23 @@
         }
 
         // Initialize KPI count animation
-        function initializeKpiCountAnimation() {
+        function initializeKpiCountAnimation1() {
             const counters = document.querySelectorAll(".counter-value");
 
-            function formatNumber(num) {
+            function formatNumber1(num) {
                 return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
 
             counters.forEach(counter => {
-                animateCounter(counter);
+                animateCounter1(counter);
             });
 
-            function animateCounter(counter) {
+            function animateCounter1(counter) {
                 const target = +counter.getAttribute("data-target");
                 let current = +counter.innerText;
                 const increment = target / 250;
 
-                function updateCounter() {
+                function updateCounter1() {
                     current = Math.min(current + increment, target);
                     counter.innerText = formatNumber(Math.floor(current));
                     if (current < target) {
@@ -96,7 +96,7 @@
                     }
                 }
 
-                updateCounter();
+                updateCounter1();
             }
         }
     </script>

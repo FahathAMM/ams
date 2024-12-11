@@ -32,8 +32,6 @@ class ApartmentController extends Controller
     {
         // return 'roomease/apartment';
         return view('pages/roomease/apartment/index', [
-            'roles' =>   Role::with('users:id,first_name,img')->get(),
-            'users' =>   User::get(['id', 'first_name', 'img']),
             'apartments' =>   $this->model->get(),
             'userWithRoles' => User::with('roles')->get(),
             'title' => $this->modelName,
@@ -47,7 +45,7 @@ class ApartmentController extends Controller
         try {
             $created =  $this->repo->createApartment($request);
             if ($created) {
-                logActivity('Apartment Create', "Apartment ID " . $created->id, 'Create');
+                logActivity($this->modelName . ' Create', $this->modelName . " ID " . $created->id, 'Create');
                 return  $this->response($this->modelName . ' created successfully', ['data' => $created], true);
             }
         } catch (\Throwable $th) {

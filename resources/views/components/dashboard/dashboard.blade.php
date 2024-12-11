@@ -19,24 +19,13 @@
                         <div class="col-12">
                             <div class="card h-100 rounded-0">
                                 <div class="card-body p-0">
-                                    <x-dashboard.include.user-activity :userLogs="$userLogs" />
+                                    <x-dashboard.include.user-activity :userLogs="$userLogs" :isEmployeeDashboard="true" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            {{-- <div class="col-auto layout-rightside-col d-lg-none d-xl-block">
-                <div class="overlay"></div>
-                <div class="layout-rightside">
-                    <div class="card h-100 rounded-0">
-                        <div class="card-body p-0">
-                            <x-dashboard.include.user-activity :userLogs="$userLogs" />
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
         </div>
     </div>
 </div>

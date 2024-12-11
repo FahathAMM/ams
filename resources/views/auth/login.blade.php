@@ -11,7 +11,6 @@
                             <div class="col-lg-6">
                                 <x-auth.banner />
                             </div>
-                            <!-- end col -->
 
                             <div class="col-lg-6">
                                 <div class="p-lg-5 p-4">
@@ -49,7 +48,7 @@
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
+                                            <input class="form-check-input" type="checkbox" value="1"
                                                 id="auth-remember-check" name="remember">
                                             <label class="form-check-label" for="auth-remember-check">
                                                 Remember me
@@ -59,6 +58,18 @@
                                         <div class="mt-4">
                                             <button class="btn btn-success w-100" type="submit">Sign In</button>
                                         </div>
+
+                                        @if (
+                                            $errors->has('username') &&
+                                                is_array($errors->get('username')) &&
+                                                str_contains($errors->get('username')[0] ?? '', 'another device'))
+                                            <div class="mt-1">
+                                                <button onclick="submitResetSession()" class="btn btn-danger w-100"
+                                                    type="button">
+                                                    Logout Other Devices
+                                                </button>
+                                            </div>
+                                        @endif
 
                                         {{-- <div class="mt-4 text-center">
                                                 <x-auth.socialite />
@@ -73,15 +84,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- end col -->
                         </div>
-                        <!-- end row -->
                     </div>
-                    <!-- end card -->
                 </div>
-                <!-- end col -->
             </form>
         </div>
-        <!-- end row -->
     </div>
+
+    @push('scripts')
+        <script>
+            function submitResetSession() {
+                let username = document.getElementById('username').value;
+                if (username == '') {
+                    alert('Please enter username');
+                    return;
+                }
+                window.location.href = '{{ url('reset-login-session') }}/' + username;
+            }
+        </script>
+    @endpush
 @endsection

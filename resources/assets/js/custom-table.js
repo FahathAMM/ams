@@ -73,8 +73,19 @@ $('body').on('click', '.delete', function () {
                 dataType: 'json',
                 success: function (res) {
 
-                    const dataTable = $('#datatable-crud').DataTable();
-                    dataTable.draw(false);
+                    console.log(deleteUrl.includes('leave/leave-type'));
+                    console.log('frin cystine table');
+
+                    // const dataTable = $('#datatable-crud').DataTable();
+                    // dataTable.draw(false);
+
+                    if ($('#datatable-crud').length) {
+                        const dataTable = $('#datatable-crud').DataTable();
+                        console.log('frin cystine table 1');
+                        dataTable.draw(false);
+                    } else {
+                        console.log("#datatable-crud element does not exist.");
+                    }
 
                     const title = res.status ? 'Deleted!' : 'Oops...';
                     const message = res.status ? (res.message || 'Your file has been deleted.') : (res.message || res.message.errorInfo[2] || 'Your file could not be deleted.');
@@ -88,6 +99,16 @@ $('body').on('click', '.delete', function () {
                     if (deleteUrl.includes('roomease/apartment')) {
                         refreshContent(deleteUrl, 'appartment-card-area');
                     }
+
+                    if (deleteUrl.includes('roomease/room')) {
+                        refreshContent(deleteUrl, 'room-card-area');
+                    }
+
+                    if (deleteUrl.includes('leave/leave-type')) {
+                        refreshContent(deleteUrl, 'leave-type-card-area');
+                    }
+
+
                 }
             });
         }

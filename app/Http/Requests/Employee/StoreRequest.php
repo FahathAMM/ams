@@ -41,7 +41,8 @@ class StoreRequest extends FormRequest
             'country' => 'required',
             'description' => "nullable",
             'is_active' => "nullable",
-            'report_manager_id' => "required",
+            'report_manager_id' => "nullable",
+            'leave_types' => "nullable",
             'password' => [
                 'required',
                 'string',
@@ -56,4 +57,11 @@ class StoreRequest extends FormRequest
             ],
         ];
     }
+
+    // protected function prepareForValidation()
+    // {
+    //     $this->merge([
+    //         'leave_types' => '',
+    //     ]);
+    // }
 }

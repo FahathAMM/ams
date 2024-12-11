@@ -10,7 +10,7 @@ use Spatie\Permission\Models\Permission;
 if (!function_exists('menu')) {
     function menu()
     {
-        generateMenuSlug();
+        // generateMenuSlug();
 
         return session('menus');
 
@@ -136,30 +136,30 @@ if (!function_exists('aditionalMenu')) {
     function aditionalMenu()
     {
         return [
-            (object) [
-                'id' => 189,
-                'menu_header_id' => 3,
-                'name1' => 'User Control-Panel',
-                'name2' => 'User Control-Panel',
-                'sequence' => '10',
-                'menu_slug' => 'administration-user-control-panel',
-                'page_url' => '#',
-                'is_submenu_available' => 0,
-                'is_active' => 0,
-                'icon' => 'ri-download-cloud-2-fill',
+            // (object) [
+            //     'id' => 189,
+            //     'menu_header_id' => 3,
+            //     'name1' => 'User Control-Panel',
+            //     'name2' => 'User Control-Panel',
+            //     'sequence' => '10',
+            //     'menu_slug' => 'administration-user-control-panel',
+            //     'page_url' => '#',
+            //     'is_submenu_available' => 0,
+            //     'is_active' => 0,
+            //     'icon' => 'ri-download-cloud-2-fill',
 
-                // for permission list menu array
-                'moduleName' => 'Administration',
-                'MenuId' =>  3,
-                'MenuDetailId' =>  '',
-                'MenuDetailSequence' =>  '',
-                'perSlug' =>  'administration-user-control-panel',
-                'subMenuDetailId' =>  '',
-                'menuName' =>  'User Control-Panel',
-                'isSubMenu' =>  0,
-                'subMenuSequence' =>  '',
-                // 'perSlug' =>  'administration-user-setting',
-            ]
+            //     // for permission list menu array
+            //     'moduleName' => 'Administration',
+            //     'MenuId' =>  3,
+            //     'MenuDetailId' =>  '',
+            //     'MenuDetailSequence' =>  '',
+            //     'perSlug' =>  'administration-user-control-panel',
+            //     'subMenuDetailId' =>  '',
+            //     'menuName' =>  'User Control-Panel',
+            //     'isSubMenu' =>  0,
+            //     'subMenuSequence' =>  '',
+            //     // 'perSlug' =>  'administration-user-setting',
+            // ]
         ];
     }
 }

@@ -7,7 +7,6 @@
     <div class="page-content">
         <div class="container-fluid">
             <x-asset.show.banner :employee="$employee" />
-
             <div class="row">
                 <div class="col-lg-12">
                     <div>

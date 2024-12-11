@@ -48,7 +48,8 @@
                         @foreach ($item->users->take(4) as $key => $user)
                             <div class="avatar-group-item">
                                 <div class="avatar-xs" title="{{ $user['first_name'] }}">
-                                    <img src="{{ $user['img'] }}" alt="" class="rounded-circle img-fluid" />
+                                    <img src="{{ $user['img'] }}" alt=""
+                                        class="rounded-circle header-profile-user" />
                                 </div>
                             </div>
                         @endforeach

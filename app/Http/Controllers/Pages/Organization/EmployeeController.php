@@ -7,8 +7,11 @@ use App\Constants\Title;
 use App\Constants\Country;
 use Illuminate\Http\Request;
 use App\Models\Branch\Branch;
+use App\Models\Leave\LeaveType;
 use Yajra\DataTables\DataTables;
 use App\Models\Employee\Employee;
+use App\Models\Leave\LeaveBalance;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Models\Department\Department;
@@ -38,16 +41,15 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $layout = $request->input('layout', 'grid');
-
+        $currentUser = currentUser();
+        $permissions = [
+            'isDelete' =>  false,
+            'isEdit' => can('organization-employee-edit'),
+            'isView' => can('organization-employee-view'),
+            'isPrint' => false
+        ];
 
         if ($request->ajax()) {
-
-            $permissions = [
-                'isDelete' =>  false,
-                'isEdit' => can('administration-users-edit'),
-                'isView' => can('administration-users-view'),
-                'isPrint' => false
-            ];
 
             $employees = $this->model->with(['branch:id,branch_name', 'department:id,department_name']);
 
@@ -61,16 +63,15 @@ class EmployeeController extends Controller
                         $permissions
                     );
                 })
-                ->rawColumns(['action'])
-                ->make(true);
+                ->rawColumns(['action'])->make(true);
         }
 
         return view('pages.organization.employee.index', [
-            'employees' =>   $this->model->get(),
-            'roles' =>   Role::get(),
+            'employees' =>   $this->model->with('department')->get(),
             'title' =>   $this->modelName,
             'layout' =>   $layout,
-            'userWithRoles' => User::with('roles')->get(),
+            'permissions' =>   $permissions,
+            'currentUser' =>   $currentUser,
         ]);
     }
 
@@ -118,6 +119,9 @@ class EmployeeController extends Controller
         $employee = $this->repo->findEmployeeById($id);
         $empEodLogs = $this->repo->assignedEmployeeEodLogs($employee);
 
+        // return $employee;
+        // return $employee->getFilteredLeaveBalance();
+
         return view('pages.organization.asset.show', [
             'employee' => $employee,
             'empEodLogs' => $empEodLogs,
@@ -129,15 +133,17 @@ class EmployeeController extends Controller
     {
         $branches = Branch::get();
         $departments = Department::get();
+
+        // $employee->leave_types;
+
         try {
             return view('pages.organization.employee.edit', [
-                'roles' =>   Role::get(),
-                'userWithRoles' => User::with('roles')->get(),
                 'countries' =>   Country::COUNTRIES,
                 'title' =>   Title::TITLE,
                 'titleName' =>   $this->modelName,
                 'branches' => $branches,
                 'departments' => $departments,
+                'leaveTypes' =>   LeaveType::get(),
                 'employee' => $employee,
                 'employees' => Employee::with('reportManager:id,first_name,last_name,username')->get(['id', 'first_name', 'last_name']),
             ]);

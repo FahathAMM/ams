@@ -202,3 +202,16 @@ if (!function_exists('getInitials')) {
         return $initials;
     }
 }
+
+if (!function_exists('getDeviceIcon')) {
+    function getDeviceIcon($device)
+    {
+        $icons = [
+            'Mobile' => 'ri-smartphone-line',
+            'Tablet' => 'ri-tablet-line',
+            'Desktop' => 'ri-computer-line',
+        ];
+
+        return $icons[$device] ?? 'ri-question-line';
+    }
+}

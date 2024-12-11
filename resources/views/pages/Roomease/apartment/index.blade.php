@@ -130,7 +130,9 @@
                     setValueByName('address', data?.address || '');
                     setValueByName('floors', data?.floors || '');
                     setValueByName('description', data?.description || '');
-                    updateSelectedValue(data?.has_parking);
+                    // updateSelectedValue(data?.has_parking);
+                    updateSelectedValue('has_parking', data.has_parking)
+
                 };
 
                 if (isEdit && data) {
@@ -141,7 +143,8 @@
                     setFormActionAndMethod('{{ route('apartment.store') }}');
                     updateSubmitButtonText('Add Apartment');
                     clearForm('apartment-form'); // Clear form fields for a fresh entry
-                    updateSelectedValue(1);
+                    // updateSelectedValue(1);
+                    updateSelectedValue('has_parking', 1)
                 }
 
                 // Show the modal

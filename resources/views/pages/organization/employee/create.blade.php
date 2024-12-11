@@ -26,7 +26,6 @@
                 autocomplete="off">
                 @csrf
                 <div class="row">
-
                     <div class="col-xxl-3">
                         <div class="card mt-n5">
                             <div class="card-body p-4">
@@ -74,7 +73,6 @@
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Repoting Managers</h5>
                             </div>
-                            <!-- end card body -->
                             <div class="card-body">
                                 <div>
                                     <x-input.select-group label="EOD Reporting Manager" name="report_manager_id"
@@ -147,13 +145,9 @@
                                             <i class="far fa-user"></i> Security
                                         </a>
                                     </li>
+
                                 </ul>
                             </div>
-
-                            {{-- <form action="{{ route('employee.store') }}" id="employee-form" method="POST"
-                            class="tablelist-form" autocomplete="off">
-                            @csrf --}}
-
                             <div class="card-body p-4">
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="personalDetails" role="tabpanel">
@@ -170,37 +164,37 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.txt-group label="First Name" name="first_name"
-                                                        placeholder="Enter your first name" />
+                                                        placeholder="Enter your first name" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.txt-group label="Last Name" name="last_name"
-                                                        placeholder="Enter your last name" />
+                                                        placeholder="Enter your last name" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.txt-group label="Employee ID" name="emp_number"
-                                                        placeholder="Enter employee ID" type="number" />
+                                                        placeholder="Enter employee ID" type="number" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.txt-group label="Designation" name="designation"
-                                                        placeholder="Enter your designation" />
+                                                        placeholder="Enter your designation" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.txt-group label="Phone Number" name="phone_number"
-                                                        placeholder="Enter your phone number" />
+                                                        placeholder="Enter your phone number" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.txt-group type="email" label="Email Address"
-                                                        name="email" placeholder="Enter your email" />
+                                                        name="email" placeholder="Enter your email" required />
                                                 </div>
                                             </div>
 
@@ -208,26 +202,27 @@
                                                 <div class="mb-3">
                                                     <x-input.select-group label="Branch" name="branch_id"
                                                         itemText="branch_name" itemValue="id" :items="$branches"
-                                                        data-choices-search-false />
+                                                        data-choices-search-false required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.select-group label="Department" name="department_id"
                                                         itemText="department_name" itemValue="id" :items="$departments"
-                                                        data-choices-search-false />
+                                                        data-choices-search-false required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.date-group label="Joining Date" name="joining_date"
-                                                        placeholder="Select date" />
+                                                        placeholder="Select date" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.select-group label="Country" name="country" itemText="name"
-                                                        itemValue="value" :items="$countries" data-choices-search-true />
+                                                        itemValue="value" :items="$countries" data-choices-search-true
+                                                        required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
@@ -237,7 +232,7 @@
                                                             ['name' => 'Male', 'value' => '1'],
                                                             ['name' => 'Female', 'value' => '2'],
                                                         ]" data-choices-search-false
-                                                        value="1" />
+                                                        value="1" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
@@ -247,7 +242,7 @@
                                                             ['name' => 'Active', 'value' => '1'],
                                                             ['name' => 'Deactive', 'value' => '0'],
                                                         ]" data-choices-search-false
-                                                        value="1" />
+                                                        value="1" required />
                                                 </div>
                                             </div>
 
@@ -271,13 +266,13 @@
                                             <div class="col-lg-6">
                                                 <div>
                                                     <x-input.txt-group label="Enter Username" type="text"
-                                                        name="username" placeholder="Enter your username" />
+                                                        name="username" placeholder="Enter your username" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div>
                                                     <x-input.txt-group label="Enter new password" type="password"
-                                                        name="password" placeholder="Enter your new password" />
+                                                        name="password" placeholder="Enter your new password" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
@@ -296,14 +291,13 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
 
                             <div class="card-footer">
                                 <div class="col-lg-12">
                                     <div class="hstack gap-2 justify-content-end">
-
-
                                         <button type="button" id="subBtn" onclick="store()" class="btn btn-primary">
                                             Submit
                                         </button>
@@ -313,11 +307,8 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- </form> --}}
                         </div>
                     </div>
-
-                    {{-- endrow --}}
                 </div>
             </form>
         </div>
@@ -385,30 +376,15 @@
             }
         </script>
     @endpush
-@endsection
 
-<style>
-    /* HTML: <div class="loader"></div> */
-    .loader {
-        --d: 22px;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        color: #25b09b;
-        box-shadow:
-            calc(1*var(--d)) calc(0*var(--d)) 0 0,
-            calc(0.707*var(--d)) calc(0.707*var(--d)) 0 1px,
-            calc(0*var(--d)) calc(1*var(--d)) 0 2px,
-            calc(-0.707*var(--d)) calc(0.707*var(--d)) 0 3px,
-            calc(-1*var(--d)) calc(0*var(--d)) 0 4px,
-            calc(-0.707*var(--d)) calc(-0.707*var(--d))0 5px,
-            calc(0*var(--d)) calc(-1*var(--d)) 0 6px;
-        animation: l27 1s infinite steps(8);
-    }
-
-    @keyframes l27 {
-        100% {
-            transform: rotate(1turn)
+    <style>
+        .legend-leave {
+            position: relative;
+            background: white;
+            width: auto;
+            top: -32px;
+            padding: 0px 10px;
+            border: 1px solid #f3f3f9
         }
-    }
-</style>
+    </style>
+@endsection

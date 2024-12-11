@@ -6,12 +6,13 @@
     'required' => false,
     'size' => '',
     'row' => '3',
-    'id' => '',
+    'id' => null,
     'value' => '',
 ])
 
 @php
-    $id = isset($id) ? $id : $name;
+    $id = $id == null ? $name : $id;
+    // $id = isset($id) || $id != 'dd' ? $id : $name;
 @endphp
 
 <div class="form-group">

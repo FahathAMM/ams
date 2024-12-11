@@ -121,7 +121,7 @@
                                                 $subject = $items[0]['subject'];
                                             @endphp
 
-                                            <div class="col-xxl-5">
+                                            <div class="col-12 col-lg-6 col-md-6 col-xxl-4">
                                                 <div class="card card-height-100">
                                                     <div class="card-header align-items-center d-flex">
                                                         <h4 class="card-title mb-0 flex-grow-1">

@@ -17,7 +17,12 @@
 <div class="form-group">
 
     @if (isset($label) && $label != '')
-        <label for="{{ $id }}" class="form-label">{{ $label }}</label>
+        <label for="{{ $id }}" class="form-label">
+            {{ $label }}
+            @if ($required)
+                <span class="text-danger mt-1">*</span> <!-- Show the asterisk if required -->
+            @endif
+        </label>
     @endif
 
     <input type="{{ $type }}" name="{{ $name }}" id="{{ $id }}"

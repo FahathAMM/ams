@@ -1,0 +1,15 @@
+{
+    "name": "Salesforce",
+    "short_name": "Salesforce",
+    "start_url": "http://192.168.2.86/ams",
+    "background_color": "#6777ef",
+    "description": "Salesforce Application",
+    "display": "fullscreen",
+    "theme_color": "#6777ef",
+    "icons": [{
+        "src": "logo.PNG",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any maskable"
+    }]
+}

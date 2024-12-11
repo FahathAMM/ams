@@ -25,7 +25,9 @@
                                         id="custom-search-input">
                                     <i class="ri-search-line search-icon"></i>
                                 </div>
+                                @canOrRole('userpermission:organization-employee-create', 'create')
                                 <x-btn.add-btn isAdd="true" routeName="customer.create" title="Create Customer" />
+                                @endcanOrRole
                             </div>
                         </div>
                     </div>

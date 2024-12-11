@@ -7,25 +7,21 @@ use Illuminate\Support\Str;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
+    public $loggedUserObj = [];
+
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
-     */
     public function rules(): array
     {
         return [
@@ -34,36 +30,33 @@ class LoginRequest extends FormRequest
         ];
     }
 
-    /**
-     * Attempt to authenticate the request's credentials.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function authenticate(): void
     {
-        $this->ensureIsNotRateLimited();
+        Log::info($this->boolean('remember'));
+
         $user = $this->checkUserAvailability($this->only('username'));
 
-        if (!$user) {
+        if (!$user || !$user->is_active) {
             throw ValidationException::withMessages([
-                'username' => 'Your Provided username could not be verified',
+                'username' => $user ? 'Your account is inactive. Please contact your administrator.' : 'The username you provided could not be found.',
             ]);
         }
+
+        $this->loggedUserObj = $user;
+
+        $this->ensureIsNotRateLimited();
+
         if ($user->password == $this->customEncrypt($this->only('password'))) {
             Auth::login($user);
             $this->intialSyncData();
-            $loginLog = 'Login => userID: ' . $user->id . "|" . 'username: ' . $user->first_name;
-            Log::channel('loggedUser')->info($loginLog);
+
+            $this->checkRememberMe($user);
         } else {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
                 'username' => trans('auth.failed'),
             ]);
-
-            // throw ValidationException::withMessages([
-            //     'password' => 'Your Provided password could not be verified',
-            // ]);
         }
 
         RateLimiter::clear($this->throttleKey());
@@ -72,6 +65,21 @@ class LoginRequest extends FormRequest
     private function intialSyncData()
     {
         getMenu();
+    }
+
+    private function checkRememberMe($user)
+    {
+        if ($this->boolean('remember')) {
+
+            $rememberToken = Str::random(60);
+
+            $user->remember_token = Crypt::encryptString($rememberToken);
+            $user->save();
+
+            Cookie::queue('remember_token', $rememberToken, 60 * 24 * 5); // 5 days
+
+            session(['user_id' => $user->id]);
+        }
     }
 
     private function checkUserAvailability($request)
@@ -94,47 +102,33 @@ class LoginRequest extends FormRequest
         return ($encrypted_data);
     }
 
-    public function authenticateOld(): void
-    {
-        $this->ensureIsNotRateLimited();
-
-        if (!Auth::attempt($this->only('username', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
-
-            throw ValidationException::withMessages([
-                'username' => trans('auth.failed'),
-            ]);
-        }
-
-        RateLimiter::clear($this->throttleKey());
-    }
-
-    /**
-     * Ensure the login request is not rate limited.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function ensureIsNotRateLimited(): void
     {
-        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 3)) {
             return;
         }
+
+        if ($this->loggedUserObj) {
+            User::where('id', $this->loggedUserObj['id'])->update(['is_active' => 0]);
+        } else {
+            logger("User ID is null. No update performed.");
+            Log::info('User ID is null. No update performed');
+        }
+
+        Log::info($this->loggedUserObj);
 
         event(new Lockout($this));
 
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
+            'username' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
         ]);
     }
 
-    /**
-     * Get the rate limiting throttle key for the request.
-     */
     public function throttleKey(): string
     {
         return Str::transliterate(Str::lower($this->input('email')) . '|' . $this->ip());

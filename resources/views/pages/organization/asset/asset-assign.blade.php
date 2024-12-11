@@ -52,19 +52,18 @@
             });
 
             const selectedAssetsArr = [];
+            let assignAssets = [];
 
             function genereteMultiSelection(assets = []) {
-                console.log('assets', assets);
 
                 let notAssignCoun = assets.filter((e) => {
                     return e.selected == 0
                 })
 
-                console.log('notAssignCoun', notAssignCoun);
-
-
+                assignAssets = assets.filter((e) => {
+                    return e.selected == 1
+                })
                 let count = assets.length > 0 ? assets.length : '';
-                // console.log('assetscond', assets.length > 0 ? assets.length : '');
 
                 new DualListbox(".select1", {
                     availableTitle: "Asset List " + count,
@@ -79,19 +78,36 @@
                     draggable: true,
                     options: assets,
                     addEvent: function(value) {
-                        console.log('Added:', value);
                         selectedAssetsArr.push(value);
                     },
                     removeEvent: function(value) {
-                        console.log('Removed:', value);
-                        // selectedAssetsArr = selectedAssetsArr.filter(item => item !== value);
+                        console.log('removeEvent', value);
+                        console.log(assignAssets);
+
+                        const index = assignAssets.findIndex(asset => asset.value === Number(value));
+
+                        console.log('index', index);
+
+                        if (index !== -1) {
+                            assignAssets.splice(index, 1);
+                        }
+                        console.log('Updated assignEodEmployees:', assignAssets);
                     },
                 });
             }
 
 
             function store() {
-                if (selectedAssetsArr.length == 0) {
+
+                let assignAssetsIds = assignAssets.map(e => e.value)
+                console.log('assignAssetsIds:', assignAssetsIds);
+
+                let selectedAssetsArrAll = [
+                    ...assignAssetsIds,
+                    ...selectedAssetsArr,
+                ];
+
+                if (selectedAssetsArrAll.length == 0) {
                     alertNotify('Please select asset', 'error')
                     return;
                 }
@@ -99,7 +115,7 @@
                 // sLoading('sbtBtn')
                 var url = '{{ url('assets/store-asset-assign') }}';
                 var payload = {
-                    selectedAssetsArr: selectedAssetsArr,
+                    selectedAssetsArr: selectedAssetsArrAll,
                     employee_id: getValue('employee_id')
                 };
                 const options = {
@@ -140,7 +156,7 @@
                 let res = ajaxRequest(url, payload, 'GET');
 
                 let assets = res.record.assets
-
+                console.log(assets);
                 $(".dual-listbox.aseetsBox").remove();
                 genereteMultiSelection(assets);
 

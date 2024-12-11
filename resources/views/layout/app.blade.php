@@ -3,7 +3,6 @@
     data-sidebar-image="none" data-preloader="disable">
 
 <head>
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="F2 Studio" name="description" />
@@ -34,10 +33,8 @@
             @include('include.footer')
         </div>
 
-
         <x-notification.toastify />
     </div>
-
 
     @include('include.setting')
 
@@ -45,7 +42,9 @@
 
     @include('include.foot')
 
-
+    <script>
+        $('document').ready(function() {});
+    </script>
 </body>
 
 </html>

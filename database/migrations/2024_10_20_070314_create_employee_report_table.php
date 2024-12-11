@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade'); // User (employee)
             $table->foreignId('report_manager_id')->constrained('employees')->onDelete('cascade'); // Supervisor
+            $table->string('report_type')->nullable();
             $table->timestamp('assigned_at')->useCurrent(); // When the relationship was created
             $table->timestamps();
         });

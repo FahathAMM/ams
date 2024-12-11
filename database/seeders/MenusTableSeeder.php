@@ -16,11 +16,10 @@ class MenusTableSeeder extends Seeder
      */
     public function run(): void
     {
-
         DB::table('menu_headers')->truncate();
         DB::table('menu_details')->truncate();
         DB::table('menu_sub_details')->truncate();
-
+        // return;
         $menuHeaderDashboard = MenuHeader::updateOrCreate(
             ['menu_code' => 1],
             [
@@ -65,8 +64,30 @@ class MenusTableSeeder extends Seeder
             ]
         );
 
-        $menuHeaderAdministration = MenuHeader::updateOrCreate(
+        $menuHeaderLeave = MenuHeader::updateOrCreate(
             ['menu_code' => 400],
+            [
+                'name1' => 'Leave',
+                'name2' => 'Leave',
+                'is_active' => 1,
+                'icon' => 'ri-dashboard-2-line',
+                'menu' => "",
+            ]
+        );
+
+        $menuHeaderRoomease = MenuHeader::updateOrCreate(
+            ['menu_code' => 500],
+            [
+                'name1' => 'Roomease',
+                'name2' => 'Roomease',
+                'is_active' => 1,
+                'icon' => 'ri-dashboard-2-line',
+                'menu' => "",
+            ]
+        );
+
+        $menuHeaderAdministration = MenuHeader::updateOrCreate(
+            ['menu_code' => 600],
             [
                 'name1' => 'Administration',
                 'name2' => 'Administration',
@@ -75,6 +96,17 @@ class MenusTableSeeder extends Seeder
                 'menu' => "",
             ]
         );
+
+        // $menuHeaderAdministration = MenuHeader::updateOrCreate(
+        //     ['menu_code' => 700],
+        //     [
+        //         'name1' => 'Administration11',
+        //         'name2' => 'Administration11',
+        //         'is_active' => 1,
+        //         'icon' => 'ri-admin-line',
+        //         'menu' => "",
+        //     ]
+        // );
 
         $menuDetails = [
             [
@@ -120,7 +152,6 @@ class MenusTableSeeder extends Seeder
                 'is_active' => 1,
                 'icon' => ' ri-computer-line',
             ],
-
 
             //menuHeaderAMS
 
@@ -169,7 +200,71 @@ class MenusTableSeeder extends Seeder
                 'is_active' => 1,
                 'icon' => ' ri-computer-line',
             ],
+            [
+                'menu_header_id' => $menuHeaderWrkbase->id,
+                'name1' => 'Assign EOD Reporting Manager',
+                'name2' => 'EOD',
+                'sequence' => '3',
+                'page_url' => 'workbase/eod-assign',
+                'is_submenu_available' => 0,
+                'is_active' => 1,
+                'icon' => ' ri-computer-line',
+            ],
 
+            // menuHeaderRoomease
+            [
+                'menu_header_id' => $menuHeaderRoomease->id,
+                'name1' => 'Apartment',
+                'name2' => 'Apartment',
+                'sequence' => '1',
+                'page_url' => 'roomease/apartment',
+                'is_submenu_available' => 0,
+                'is_active' => 1,
+                'icon' => ' ri-computer-line',
+            ],
+
+            // menuHeaderLeave
+
+            [
+                'menu_header_id' => $menuHeaderLeave->id,
+                'name1' => 'Leave Type',
+                'name2' => 'Leave Type',
+                'sequence' => '1',
+                'page_url' => 'leave/leave-type',
+                'is_submenu_available' => 0,
+                'is_active' => 1,
+                'icon' => ' ri-computer-line',
+            ],
+            [
+                'menu_header_id' => $menuHeaderLeave->id,
+                'name1' => 'Apply Leave',
+                'name2' => 'Apply Leave',
+                'sequence' => '2',
+                'page_url' => 'leave/leave',
+                'is_submenu_available' => 0,
+                'is_active' => 1,
+                'icon' => ' ri-computer-line',
+            ],
+            [
+                'menu_header_id' => $menuHeaderLeave->id,
+                'name1' => 'Request Leave List',
+                'name2' => 'Request Leave List',
+                'sequence' => '2',
+                'page_url' => 'leave/leave-list',
+                'is_submenu_available' => 0,
+                'is_active' => 1,
+                'icon' => ' ri-computer-line',
+            ],
+            [
+                'menu_header_id' => $menuHeaderLeave->id,
+                'name1' => 'My Leave',
+                'name2' => 'My Leave',
+                'sequence' => '2',
+                'page_url' => 'leave/leave',
+                'is_submenu_available' => 0,
+                'is_active' => 1,
+                'icon' => ' ri-computer-line',
+            ],
 
             //menuHeaderAdministration
 
@@ -215,9 +310,19 @@ class MenusTableSeeder extends Seeder
             ],
             [
                 'menu_header_id' => $menuHeaderAdministration->id,
+                'name1' => 'Logged User Tracking',
+                'name2' => 'Logged User Tracking',
+                'sequence' => '5',
+                'page_url' => 'administration/logged-user-tracking',
+                'is_submenu_available' => 0,
+                'is_active' => 1,
+                'icon' => 'ri-contacts-fill',
+            ],
+            [
+                'menu_header_id' => $menuHeaderAdministration->id,
                 'name1' => 'Setting',
                 'name2' => 'Setting',
-                'sequence' => '4',
+                'sequence' => '6',
                 'page_url' => 'administration/setting',
                 'is_submenu_available' => 0,
                 'is_active' => 1,

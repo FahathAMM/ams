@@ -1,5 +1,7 @@
 @props([
     'Name' => 'Fahath',
+    'permissions' => [],
+    'currentUser' => '',
     'designation' => 'Team Leader & HR',
     'data' => '[]',
     'img' => 'assets/images/users/avatar-2.jpg',
@@ -12,13 +14,6 @@
         <div class="row align-items-center team-row">
             <div class="col team-settings">
                 <div class="row">
-                    {{-- <div class="col">
-                        <div class="flex-shrink-0 me-2">
-                            <button type="button" class="btn btn-light btn-icon rounded-circle btn-sm favourite-btn ">
-                                <i class="ri-star-fill fs-14"></i>
-                            </button>
-                        </div>
-                    </div> --}}
                     <div class="col-12 text-end dropdown">
                         <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="ri-more-fill fs-17"></i>
@@ -68,19 +63,20 @@
                 </div>
             </div>
             <div class="col-lg-2 col">
-                @if ($data['id'] == currentUser()->employee_id)
+                {{-- @if ($data['id'] == currentUser()->employee_id) --}}
+                @if ($data['id'] == $currentUser->employee_id)
                     <div class="text-end"> <a href="{{ route('employee.show', ['employee' => $data['id']]) }}"
                             class="btn btn-light view-btn">View Profile</a>
                     </div>
                 @else
-                    @canOrRole('organization-employee-view', 'view')
-                    <div class="text-end">
-                        <a href="{{ route('employee.show', ['employee' => $data['id']]) }}"
-                            class="btn btn-light view-btn">
-                            View Profile
-                        </a>
-                    </div>
-                    @endcanOrRole
+                    @if ($permissions['isView'])
+                        <div class="text-end">
+                            <a href="{{ route('employee.show', ['employee' => $data['id']]) }}"
+                                class="btn btn-light view-btn">
+                                View Profile
+                            </a>
+                        </div>
+                    @endif
                 @endif
             </div>
         </div>

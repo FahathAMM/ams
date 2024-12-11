@@ -155,13 +155,13 @@
                                             <i class="far fa-user"></i> Security
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#leaveManagment" role="tab">
+                                            <i class="far fa-user"></i> Leave
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
-
-                            {{-- <form action="{{ route('employee.update', ['employee' => $employee->id]) }}" id="employee-form"
-                            method="POST" class="tablelist-form" autocomplete="off">
-                            @method('PUT')
-                            @csrf --}}
 
                             <div class="card-body p-4">
                                 <div class="tab-content">
@@ -179,38 +179,39 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.txt-group label="First Name" name="first_name"
-                                                        placeholder="Enter your first name" :value="$employee->first_name" />
+                                                        placeholder="Enter your first name" :value="$employee->first_name" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.txt-group label="Last Name" name="last_name"
-                                                        placeholder="Enter your last name" :value="$employee->last_name" />
+                                                        placeholder="Enter your last name" :value="$employee->last_name" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.txt-group label="Employee ID" name="emp_number"
-                                                        placeholder="Enter employee ID" type="text"
-                                                        :value="$employee->emp_number" />
+                                                        placeholder="Enter employee ID" type="text" :value="$employee->emp_number"
+                                                        required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.txt-group label="Designation" name="designation"
-                                                        placeholder="Enter your designation" :value="$employee->designation" />
+                                                        placeholder="Enter your designation" :value="$employee->designation" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.txt-group label="Phone Number" name="phone_number"
-                                                        placeholder="Enter your phone number" :value="$employee->phone_number" />
+                                                        placeholder="Enter your phone number" :value="$employee->phone_number" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.txt-group type="email" label="Email Address"
-                                                        name="email" placeholder="Enter your email" :value="$employee->email" />
+                                                        name="email" placeholder="Enter your email" :value="$employee->email"
+                                                        required />
                                                 </div>
                                             </div>
 
@@ -218,27 +219,27 @@
                                                 <div class="mb-3">
                                                     <x-input.select-group label="Branch" name="branch_id"
                                                         itemText="branch_name" itemValue="id" :items="$branches"
-                                                        data-choices-search-false :value="$employee->branch_id" />
+                                                        data-choices-search-false :value="$employee->branch_id" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.select-group label="Department" name="department_id"
                                                         itemText="department_name" itemValue="id" :items="$departments"
-                                                        data-choices-search-false :value="$employee->department_id" />
+                                                        data-choices-search-false :value="$employee->department_id" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.date-group label="Joining Date" name="joining_date"
-                                                        placeholder="Select date" :value="$employee->joining_date" />
+                                                        placeholder="Select date" :value="$employee->joining_date" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <x-input.select-group label="Country" name="country" itemText="name"
                                                         itemValue="value" :items="$countries" data-choices-search-true
-                                                        :value="$employee->country" />
+                                                        :value="$employee->country" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
@@ -248,7 +249,7 @@
                                                             ['name' => 'Male', 'value' => '1'],
                                                             ['name' => 'Female', 'value' => '2'],
                                                         ]" data-choices-search-false
-                                                        :value="$employee->gender" />
+                                                        :value="$employee->gender" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
@@ -258,7 +259,7 @@
                                                             ['name' => 'Active', 'value' => '1'],
                                                             ['name' => 'Deactive', 'value' => '0'],
                                                         ]" data-choices-search-false
-                                                        :value="$employee->is_active" />
+                                                        :value="$employee->is_active" required />
                                                 </div>
                                             </div>
 
@@ -283,13 +284,13 @@
                                                 <div>
                                                     <x-input.txt-group label="Enter Username" type="text"
                                                         name="username" placeholder="Enter your username"
-                                                        :value="$employee->username" />
+                                                        :value="$employee->username" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div>
                                                     <x-input.txt-group label="Enter new password" type="password"
-                                                        name="password" placeholder="Enter your new password" />
+                                                        name="password" placeholder="Enter your new password" required />
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
@@ -304,6 +305,34 @@
                                                         class="link-primary text-decoration-underline">
                                                         Forgot Password ?
                                                     </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="leaveManagment" role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div style=" border: 1px solid #e2e3ea; padding: 20px 10px; border-radius: 5px; "
+                                                    class="mt-3">
+                                                    <legend class="fs-14 legend-leave">
+                                                        Leave Category
+                                                    </legend>
+                                                    <div class="row">
+                                                        @foreach ($leaveTypes as $type)
+                                                            <div class="col-md-3 col-lg-3 col-sm-6">
+                                                                <div class="form-check mb-3">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="type-{{ $type->id }}" name="leave_types[]"
+                                                                        value="{{ $type->id }}"
+                                                                        @checked(in_array($type->id, $employee->leave_types ?? []))>
+                                                                    <label class="form-check-label"
+                                                                        for="type-{{ $type->id }}">
+                                                                        {{ $type->name }} ({{ $type->number_of_days }})
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -338,7 +367,7 @@
         <script>
             function store() {
 
-                sLoading('subBtn');
+                // sLoading('subBtn');
 
                 var form = document.getElementById('employee-form');
                 var url = form.getAttribute('action');
@@ -392,29 +421,3 @@
         </script>
     @endpush
 @endsection
-
-<style>
-    /* HTML: <div class="loader"></div> */
-    .loader {
-        --d: 22px;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        color: #25b09b;
-        box-shadow:
-            calc(1*var(--d)) calc(0*var(--d)) 0 0,
-            calc(0.707*var(--d)) calc(0.707*var(--d)) 0 1px,
-            calc(0*var(--d)) calc(1*var(--d)) 0 2px,
-            calc(-0.707*var(--d)) calc(0.707*var(--d)) 0 3px,
-            calc(-1*var(--d)) calc(0*var(--d)) 0 4px,
-            calc(-0.707*var(--d)) calc(-0.707*var(--d))0 5px,
-            calc(0*var(--d)) calc(-1*var(--d)) 0 6px;
-        animation: l27 1s infinite steps(8);
-    }
-
-    @keyframes l27 {
-        100% {
-            transform: rotate(1turn)
-        }
-    }
-</style>
