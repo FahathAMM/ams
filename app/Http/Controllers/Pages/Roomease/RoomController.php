@@ -33,7 +33,6 @@ class RoomController extends Controller
 
     public function index(Request $request)
     {
-        // return 'roomease/apartment';
         return view('pages/roomease/room/index', [
             'apartments' =>  Apartment::get(),
             'rooms' =>   $this->model->latest()->get(),
@@ -47,7 +46,6 @@ class RoomController extends Controller
     public function store(StoreRequest $request)
     {
         try {
-            // return $request;
             $created =  $this->repo->createRoom($request);
             if ($created) {
                 logActivity($this->modelName . ' Create', $this->modelName . " ID " . $created->id, 'Create');
@@ -57,24 +55,13 @@ class RoomController extends Controller
             return  $this->response($th->getMessage(), null, false);
         }
     }
-
-    public function show(string $id)
-    {
-        //
-    }
-
-    public function edit(string $id)
-    {
-        return $this->response($this->modelName . ' created successfully', ['data' => $id], true);
-    }
-
     public function update(UpdateRequest $request, Room $room)
     {
         try {
             $updated = $this->repo->updateRoom($request, $room);
 
             if ($updated) {
-                logActivity($this->modelName . ' Create', $this->modelName . " ID " . $room->id, 'Update');
+                logActivity($this->modelName . ' Update', $this->modelName . " ID " . $room->id, 'Update');
                 return  $this->response($this->modelName . ' update successfully', ['data' => $updated], true);
             }
         } catch (\Throwable $th) {
@@ -87,7 +74,7 @@ class RoomController extends Controller
         try {
             $deleted = $room->delete();
             if ($deleted) {
-                logActivity($this->modelName . ' Create', $this->modelName . " ID " . $room->id, 'Delete');
+                logActivity($this->modelName . ' Delete', $this->modelName . " ID " . $room->id, 'Delete');
                 return $this->response($this->modelName . ' successfully deleted.', $deleted, true);
             } else {
                 return $this->response($this->modelName . ' cannot deleted.', null, false);
