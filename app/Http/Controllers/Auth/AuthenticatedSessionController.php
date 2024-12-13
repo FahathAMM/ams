@@ -43,7 +43,6 @@ class AuthenticatedSessionController extends Controller
         }
 
         event(new UserLoginEvent(Auth::user()));
-
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

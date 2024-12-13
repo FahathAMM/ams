@@ -15,7 +15,6 @@ if (!function_exists('getBrowser')) {
         if (preg_match($pattern, $userAgent, $matches)) {
             $log_browser =  $matches[0];
         }
-
         return $log_browser;
     }
 }
@@ -28,7 +27,6 @@ if (!function_exists('pdfToBase64')) {
 }
 
 if (!function_exists('logActivity')) {
-
     function logActivity($log_form_name = "", $log_form_record_code = "", $log_action = "",  $log_form_record_detail = "", $log_type = 'normal', $log_user = "")
     {
         $log_user = auth()->user();
@@ -49,7 +47,6 @@ if (!function_exists('logActivity')) {
         $msg .= 'Action: ' . $log_action . " | ";
         $msg .= 'formRecordDesc: ' . $log_form_record_detail . " | ";
         $msg .= 'Date: ' . $log_cdate . " | ";
-
 
         if ($log_user) {
             DB::table('user_logs')->insert([
@@ -80,8 +77,6 @@ if (!function_exists('can')) {
         $LoggedUserAccesspermissions = collect(auth()->user()->getPermissionsViaRoles()->toArray())
             ->pluck('name')->unique()->values()->toArray();
 
-        // Log::info('can2', [$per]);
-
         return  in_array($per, $LoggedUserAccesspermissions);
     }
 }
@@ -97,13 +92,11 @@ if (!function_exists('currentUser')) {
     function currentUser()
     {
         $user = auth()->user();
-
         // Check if user is authenticated
         if ($user) {
             // Load the roles and employee relationships for the authenticated user
             return $user->load('roles', 'employee');
         }
-
         // If no user is authenticated, return null or handle accordingly
         return null;
     }
@@ -117,7 +110,6 @@ if (!function_exists('fetchCurrentEmployeeWithReportingManagers')) {
         if ($empId) {
             return $emp = Employee::with(['reportManager:id,first_name,last_name,img'])->find($empId);
         }
-
         return abort(450);
     }
 }
@@ -130,11 +122,9 @@ if (!function_exists('currentEmployee')) {
         if ($empId) {
             return $emp = Employee::find($empId);
         }
-
         return abort(450);
     }
 }
-
 
 if (!function_exists('fetchCurrentEmployeeWithAssignedReportingEmployees')) {
     function fetchCurrentEmployeeWithAssignedReportingEmployees()
@@ -144,11 +134,9 @@ if (!function_exists('fetchCurrentEmployeeWithAssignedReportingEmployees')) {
         if ($empId) {
             return $emp = Employee::with(['reportingManager:id,first_name,last_name,img'])->find($empId);
         }
-
         return abort(450);
     }
 }
-
 
 if (!function_exists('actionBtns')) {
     function actionBtns($id = "",  $editRouteName = '', $url = '', $deleteDisplayValue = "", $permission = [])
@@ -238,7 +226,6 @@ if (!function_exists('dl')) {
     function dl($arr)
     {
         echo "<pre>" . json_encode($arr, JSON_PRETTY_PRINT) . "</pre>";
-        // die;
     }
 }
 
@@ -266,7 +253,6 @@ if (!function_exists('downloadAndAddFileFromCdn')) {
     function downloadAndAddFileFromCdn()
     {
         return;
-
         $files = [
             'https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js',
             'https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js',
@@ -289,7 +275,6 @@ if (!function_exists('downloadAndAddFileFromCdn')) {
             file_put_contents($savePath . $filename, fopen($file, 'r'));
             echo "Downloaded<br>: $filename\n";
         }
-
         echo "All files have been downloaded.";
     }
 }

@@ -11,9 +11,7 @@ if (!function_exists('menu')) {
     function menu()
     {
         // generateMenuSlug();
-
         return session('menus');
-
         // $HeaderMenu =  DB::table('menu_headers')->get();
         // $DetailMenu =   DB::table('menu_details')->where('is_active', 1)->get();
         // $SubMenuDetail =   DB::table('menu_sub_details')->get();
@@ -91,9 +89,6 @@ if (!function_exists('generateMenuSlug')) {
         $menuHeaders = DB::table('menu_headers')->pluck('name1', 'id')->toArray();
 
         $detailMenus = $detailMenus->merge(aditionalMenu());
-        // $detailMenus;
-
-        // dd($detailMenus);
 
         foreach ($detailMenus as $menu) {
             $moduleName = $menuHeaders[$menu->menu_header_id];
@@ -180,7 +175,6 @@ if (!function_exists('getMenuBkp')) {
         //     })->values()
         //     ->toArray();
 
-
         $HeaderMenu =  DB::table('menu_headers')->where('is_active', 1)->get();
         $DetailMenu =   DB::table('menu_details')->where('is_active', 1)->orderBy('sequence', 'asc')->get();
         $SubMenuDetail =   DB::table('menu_sub_details')->where('is_active', 1)->get();
@@ -193,7 +187,6 @@ if (!function_exists('getMenuBkp')) {
         ];
 
         session(['menus' => $menus]);
-
         return $menus;
     }
 }

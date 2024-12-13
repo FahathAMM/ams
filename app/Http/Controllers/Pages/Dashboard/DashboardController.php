@@ -28,11 +28,6 @@ class DashboardController extends Controller
 
     public function index()
     {
-
-        //         $leaveRequest = LeaveRequest::find($request->leave_request_id);
-        // return $leaveRequest;
-
-
         $userLogs = $this->getUserActivites();
         return view('pages/dashboard/index', [
             'title' => $this->modelName,

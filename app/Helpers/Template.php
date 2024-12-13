@@ -1,7 +1,5 @@
 <?php
 
-
-
 if (!function_exists('isActive')) {
     function isActive($status, $par)
     {
@@ -29,7 +27,6 @@ if (!function_exists('duration')) {
         return   $dur = $interval->y . ' years, ' . $interval->m . ' months, ' . $interval->d . ' days.';
     }
 }
-
 
 if (!function_exists('orderBasicInfo')) {
     function orderBasicInfo($order)
@@ -89,7 +86,6 @@ if (!function_exists('orderBasicInfo')) {
     }
 }
 
-
 if (!function_exists('orderBillingInfo')) {
     function orderBillingInfo($order)
     {
@@ -120,7 +116,6 @@ if (!function_exists('orderShippingInfo')) {
         $shippingAddress = $order->shipping;
         $shippingAddressObj = (object)$order->shipping->address;
 
-
         $shippingAddressArr = [
             'firstname' => $shippingAddressObj->firstname ?? '---',
             'lastname' => $shippingAddressObj->lastname ?? '---',
@@ -138,7 +133,6 @@ if (!function_exists('orderShippingInfo')) {
             'administrative_area_level_2' => $shippingAddressObj->administrative_area_level_2 ?? '---',
             'sublocality_level_2' => $shippingAddressObj->sublocality_level_2 ?? '---',
         ];
-
 
         return $shippingAddressArr;
     }
@@ -159,7 +153,6 @@ if (!function_exists('getGreeting')) {
     }
 }
 
-
 if (!function_exists('logAction')) {
     function logAction($value)
     {
@@ -173,7 +166,6 @@ if (!function_exists('logAction')) {
         return "<h5 class='fs-14 my-1 fw-normal'> <span class='badge  " . $arr[$value] . "'> $value </span> </h5>";
     }
 }
-
 
 if (!function_exists('eodStatus')) {
     function eodStatus($value)
@@ -211,7 +203,6 @@ if (!function_exists('getDeviceIcon')) {
             'Tablet' => 'ri-tablet-line',
             'Desktop' => 'ri-computer-line',
         ];
-
         return $icons[$device] ?? 'ri-question-line';
     }
 }

@@ -251,9 +251,7 @@
                 }
             }
 
-
             function submit1() {
-
                 let leave_request_id = getValue('leave_request_id');
                 let status = getValue('status');
 

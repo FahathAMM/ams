@@ -54,11 +54,6 @@ class RoleController extends Controller
         }
     }
 
-    public function show(string $id)
-    {
-        //
-    }
-
     public function edit(string $id)
     {
         return  $this->response($this->modelName . ' created successfully', ['data' => $id], true);
@@ -88,7 +83,6 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         try {
-            // Project Manager
             $deleted = $role->delete();
             if ($deleted) {
 

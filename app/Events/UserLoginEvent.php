@@ -14,6 +14,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 class UserLoginEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
     public $user;
 
     public function __construct($user)

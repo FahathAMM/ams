@@ -65,11 +65,6 @@ class PermissionController extends Controller
             $permissionList = $request->rowData;
             $roleId = $request->roleId;
 
-            // return [
-            //     $permissionList,
-            //     $roleId
-            // ];
-
             logActivity('Permission Update', 'Role ID ' . $roleId, 'Update');
             $role = Role::find($roleId);
             $allPerList = array_flip(Permission::pluck('name', 'id')->toArray());
