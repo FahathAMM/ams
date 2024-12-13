@@ -206,11 +206,8 @@
                 setValue('leave_type_id', item?.leave_type?.id)
                 setValue('number_of_days', item?.request_days)
                 setValue('applied_employee_id', item?.applied_employee?.id)
-                updateSelectedValue(item?.status)
-
-
+                updateSelectedValue('status', item?.status)
                 setValue('reason', reason)
-
             }
 
             async function submit() {
