@@ -31,6 +31,7 @@ use App\Http\Controllers\Pages\Roomease\RoomController;
 |
 */
 
+
 // Route::get('/', function () {
 //     return view('pages/dashboard/index');
 // });
