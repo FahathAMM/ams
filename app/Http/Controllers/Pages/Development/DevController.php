@@ -27,6 +27,16 @@ class DevController extends Controller
         $this->isDestroyingAllowed = true;
     }
 
+    public  function getRoutes(Request $request)
+    {
+        try {
+            $routes = Route::getRoutes()->get();
+            return view('development.routes', compact('routes'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     public function Permissions(Request $request)
     {
         if ($request->ajax()) {
