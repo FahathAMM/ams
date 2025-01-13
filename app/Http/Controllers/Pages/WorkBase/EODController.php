@@ -73,7 +73,6 @@ class EODController extends Controller
     {
         try {
             $employee = Employee::find($request->reporting_manager_id);
-
             $employee->reportingManager()->wherePivot('report_type', 'eod_report')->detach();
             $updated = $employee->reportingManager()->attach($request->selectedEodEmployeessArr, ['report_type' => 'eod_report']);
 
