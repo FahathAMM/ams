@@ -27,7 +27,6 @@ class EODController extends Controller
         $this->repo = $repo;
         $this->model = $model;
         $this->isDestroyingAllowed = true;
-
         // $this->middleware('userpermission:organization-employee-view')->only('index');
     }
 
