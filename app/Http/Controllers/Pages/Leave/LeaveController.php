@@ -63,9 +63,11 @@ class LeaveController extends Controller
                 'elr.rejected_reason',
                 'elr.approved_reason'
             ])
+
             // ->whereHas('employees', function ($query) {
             //     $query->where('employee_id', CurrentUser()->employee_id);
             // })
+
             ->where('elr.employee_id', CurrentUser()->employee_id)
             ->join('leave_balances as lb', function ($join) {
                 $join->on('lb.leave_type_id', '=', 'leave_requests.leave_type_id')
