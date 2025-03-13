@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-        <x-card.grid-card titleName="Billing Address">
+        <x-card.grid-card titleName="Basic Info">
             <div class="vstack gap-1">
                 @foreach ($basicInfo as $key => $info)
                     @if (!is_null($info))

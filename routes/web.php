@@ -86,7 +86,6 @@ Route::middleware(['auth', 'logged.session'])->group(function () {
     Route::get('workbase/eod-assign-by-employee', [EODController::class, 'getEmployeesAssignByEmployee']);
     Route::post('workbase/store-eod-reporting-assign', [EODController::class, 'assignedEODStore']);
 
-
     Route::resource('leave/leave', LeaveController::class);
     Route::resource('leave/leave-type', LeaveTypeController::class);
     Route::get('leave/leave-list', [LeaveController::class, 'LeaveRequestList']);

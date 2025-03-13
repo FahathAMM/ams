@@ -188,8 +188,20 @@
             function reviewLeaveRequest(id, item) {
                 console.log(item);
 
-                let start_date = '{{ date('d M Y', strtotime($item->start_date)) }}';
-                let end_date = '{{ date('d M Y', strtotime($item->end_date)) }}';
+
+
+                let start_date = new Date(item.start_date).toLocaleDateString('en-GB', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                });
+
+                let end_date = new Date(item.end_date).toLocaleDateString('en-GB', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                });
+
                 let reason = item?.status == 'Approved' ? item.approved_reason : item.rejected_reason
 
                 setImage('view-userimg', item?.applied_employee?.img);

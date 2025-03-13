@@ -15,7 +15,7 @@
             <form id="leave-request-form" method="POST" action="{{ route('leave.store') }}" autocomplete="off"
                 class="needs-validation1" novalidate1 enctype="multipart/form-data">
                 <input type="hidden" name="start_date" value="{{ $data['start'] }}">
-                <input type="hidden" name="end_date" value="{{ $data['end'] }}">
+                <input type="hidden" name="end_date" value="{{ isset($data['end']) ? $data['end'] : $data['start'] }}">
                 <input type="hidden" name="applied_employee_id" value="{{ $currentEmployeeId }}">
                 <input type="hidden" name="request_days" value="{{ $selectLeaveDays }}">
                 @csrf
@@ -83,7 +83,7 @@
                                 @php
                                     $userDetails = [
                                         'Start Date' => $data['start'],
-                                        'End Date' => $data['end'],
+                                        'End Date' => isset($data['end']) ? $data['end'] : $data['start'],
                                         'Total Request Day(s)' => $selectLeaveDays ?? '',
                                         'Employee ID' => currentUser()->employee->emp_number ?? '',
                                         'Employee Name' => currentUser()->full_name ?? '',

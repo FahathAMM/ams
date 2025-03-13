@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
         // Paginator::useBootstrapFour();
 
-        Blade::if('canOrRole', function ($per, $action) {
+        Blade::if('canOrRole', function ($per, $action = null) {
             return can($per, $action);
         });
     }

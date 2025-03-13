@@ -9,7 +9,7 @@
                 @foreach ($roles as $role)
                     <div class="col-xxl-3 col-md-4">
                         <x-card.card-role :roleName="$role->name" color="warning" :roleId="$role->id" :item="$role"
-                            per="administration-role-edit" />
+                            per="administration-role-edit" perDelete="administration-role-delete" />
                     </div>
                 @endforeach
                 <div class="col-xxl-3 col-md-4">
@@ -163,6 +163,11 @@
                 });
                 setValue('edit-name', item.name);
                 setValue('edit-role-id', roleId);
+
+                $('#edit-name')
+                    .attr('readonly', item.name === 'Super-Admin')
+                    .css('cursor', item.name === 'Super-Admin' ? 'not-allowed' : '')
+                    .attr('title', item.name === 'Super-Admin' ? 'Super-Admin cannot change' : null);
             }
 
             function store() {

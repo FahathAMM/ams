@@ -1,4 +1,8 @@
 /* ===============Data Table====================== */
+#datatable-crud_wrapper table thead th {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+
 
 .selected-row {
     background-color: #F5F6F8;
@@ -20,6 +24,21 @@ div.dt-center-in-div button {
     padding: 2px;
 }
 
+.per-module-header::after, .per-module-header::before {
+    display: none !important;
+}
+
+#permission-edit-form .fixed-header {
+    position: sticky !important;
+    top: -1px !important;
+    background-color: #F4F5F7;
+}
+
+#datatable-crud .dataTables_empty {
+    color: red !important;
+    font-family: system-ui;
+}
+
 .datatable-crud {
     font-size: .8rem !important;
 }
@@ -37,7 +56,6 @@ div.dt-center-in-div button {
     opacity: 0.98;
     z-index: 99;
 }
-
 
 .datatable-crud_processing {
     min-height: 10px !important;
@@ -201,7 +219,7 @@ div.dt-filter-spacer {
 }
 
 #datatable-crud td, #datatable-crud th {
-    border: 1px solid #eaebee;
+    border-top: 1px solid #eaebee;
     border-bottom-width: 0px !important;
     font-size: 12px !important;
 }
@@ -231,9 +249,31 @@ div.dt-filter-spacer {
 
 .dataTables_scrollHeadInner thead th {
     /* height: 22px !important; */
-    background: #F4F5F7 !important;
+    /* background: #F4F5F7 !important; */
+    background: #eff2f74d !important;
     color: #224069 !important;
 }
+
+table.table-bordered.dataTable th, table.table-bordered.dataTable td {
+    border-bottom-width: 0px !important;
+}
+
+#datatable-crud th {
+    border-top: 0px solid #eaebee !important;
+    border-bottom-width: 0px !important;
+    font-size: 12px !important;
+}
+
+#datatable-crud td {
+    border-top: 0px solid #eaebee !important;
+    border-bottom: 1px solid #eaebee !important;
+    border-bottom-width: 1px !important;
+    font-size: 12px !important;
+}
+
+/* #datatable-crud_wrapper thead th, #datatable-crud_wrapper tbody td {
+    border-right: 0px solid #eaebee !important;
+} */
 
 #datatable-crud tbody td {
     padding: 0 2px !important;
@@ -276,6 +316,14 @@ div.dt-filter-spacer {
     border-left: 0px solid #eaebee;
 }
 
+#editPermissionModal #datatable-crud_wrapper .row:nth-of-type(3) {
+    border-top: 1px solid #ebebeb !important;
+    margin-top: 10px !important;
+    padding: 0 0 !important;
+    margin: auto !important;
+    align-items: center !important;
+}
+
 #editPermissionModal #datatable-crud thead th {
     border-top: 2px solid #eaebee;
     border-right: 0px solid #eaebee;
@@ -300,6 +348,102 @@ div.dt-filter-spacer {
 #editPermissionModal #datatable-crud th:nth-child(-n+2) {
     text-align: left !important;
 }
+
+.truncate {
+    white-space: nowrap;
+    /* Prevent text from wrapping */
+    overflow: hidden;
+    /* Hide overflowed text */
+    text-overflow: ellipsis;
+    /* Add ellipsis (...) */
+    width: 140px;
+    /* Set the width of the element */
+}
+
+/* -------------------scroll and paginate------------------------- */
+/* .dataTables_paginate .pagination li {
+    margin: 10px 5px 0px 5px !important;
+} */
+
+@media (min-width: 380px) {
+    .dataTables_paginate .pagination li {
+        margin: 10px 5px 0px 5px !important;
+    }
+}
+
+@media (max-width: 379px) {
+    .dataTables_paginate .pagination li {
+        margin: 10px 1px 0px 2px !important;
+    }
+}
+
+
+.dataTables_paginate .pagination li a {
+    border-radius: 10px !important;
+}
+
+
+/* Reserve space for the scrollbar without fliction */
+.dataTables_scrollBody {
+    padding-bottom: 8px;
+    /* Reserve scrollbar height */
+    overflow-y: hidden;
+    /* Prevent vertical overflow */
+    position: relative;
+}
+
+/* Hide scrollbar initially */
+.dataTables_scrollBody::-webkit-scrollbar {
+    width: 8px;
+    /* Set scrollbar width */
+    height: 8px;
+    /* Set scrollbar height for horizontal scrolling */
+    background: transparent;
+    /* Invisible when hidden */
+}
+
+/* Invisible thumb initially */
+.dataTables_scrollBody::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    /* Invisible thumb */
+}
+
+/* Show scrollbar on hover */
+.dataTables_scrollBody:hover {
+    overflow-y: auto;
+    /* Enable scroll on hover */
+}
+
+/* Visible thumb and scrollbar on hover */
+.dataTables_scrollBody:hover::-webkit-scrollbar-thumb {
+    background-color: #b9b9b9;
+    /* Visible thumb */
+    border-radius: 20px;
+    /* Rounded corners */
+}
+
+/* Track color for the scrollbar */
+.dataTables_scrollBody:hover::-webkit-scrollbar {
+    background-color: #ffffff;
+    /* Track color */
+}
+
+.active>.page-link, .page-link.active {
+    z-index: 3;
+    background-color: #EFF2F7;
+    border-color: #ebedee;
+    color: #3d5186;
+}
+
+#datatable-crud_wrapper .row:nth-of-type(3) {
+    border-top: 1px solid #ebebeb !important;
+    margin-top: 10px !important;
+    padding: 0 0 !important;
+    margin: 15px -16px -10px -16px !important;
+    align-items: center !important;
+}
+
+/* -------------------end scroll and paginate---------------------- */
 
 /* ===============end data table ====================== */
 
@@ -488,7 +632,7 @@ table.dataTable>thead .sorting:after, table.dataTable>thead .sorting_asc:after, 
 }
 
 table.dataTable.table-sm>thead>tr>th:not(.sorting_disabled) {
-    padding-right: 30px;
+    padding-right: 30px !important;
 }
 
 table.dataTable>thead .sorting:after, table.dataTable>thead .sorting_asc:after, table.dataTable>thead .sorting_asc_disabled:after, table.dataTable>thead .sorting_desc:after, table.dataTable>thead .sorting_desc_disabled:before {
@@ -507,14 +651,7 @@ table.dataTable.table-sm .sorting:before, table.dataTable.table-sm .sorting_asc:
     }
 }
 
-.choices__inner {
-    min-height: 34.5px !important;
-    padding: 0rem 3.6rem .1rem .5rem !important;
-}
 
-.choices__list--single {
-    padding: 7px 16px 4px 4px;
-}
 
 @media (min-width: 1024.1px) {
     [data-layout=horizontal] .container-fluid, [data-layout=horizontal] .layout-width {
@@ -536,7 +673,6 @@ body[data-layout=horizontal][data-layout-size=boxed] .container-fluid, body[data
     justify-content: end !important;
 }
 
-
 @media (max-width:991.98px) {
     body[data-layout=horizontal] .page-content {
         margin-top: 60px !important
@@ -553,8 +689,24 @@ body[data-layout=horizontal][data-layout-size=boxed] .container-fluid, body[data
     }
 }
 
+.acitivity-timeline .acitivity-item:before {
+    border-left: 1px dashed #bcb9b9 !important;
+}
+
 /* =========end override from app.min.css=========== */
 
+
+/* ========= choices customize=========== */
+
+.grid-filter .choices__list--dropdown {
+    width: max-content !important;
+}
+
+.dataTables_length .choices__list--dropdown {
+    width: 100% !important;
+}
+
+/* ========= end choices customize=========== */
 
 /* Extra Small devices (phones) */
 @media (max-width: 575.98px) {
@@ -584,4 +736,16 @@ body[data-layout=horizontal][data-layout-size=boxed] .container-fluid, body[data
 /* XX-Large devices (extra large desktops) */
 @media (min-width: 1400px) {
     /* Your styles for XX-Large devices go here */
+}
+
+.card-header:first-child {
+    border-radius: .75rem .75rem 0 0 !important;
+}
+
+.card-footer:last-child {
+    border-radius: 0 0 .75rem .75rem !important;
+}
+
+.card {
+    border-radius: .75rem !important;
 }

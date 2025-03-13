@@ -5,6 +5,7 @@
     'color' => 'warning',
     'btnTarget' => 'editRoleModal',
     'funName' => 'editRoleModal',
+    'perDelete' => 'editRoleModal',
     'per' => '',
     'item' => [],
 ])
@@ -23,17 +24,26 @@
                 <p class="text-muted text-truncate mb-0">Total {{ $totalUsers }} user(s) </p>
             </div>
             <div class="flex-shrink-0 ms-2">
-                @canOrRole($per, 'edit')
+                @canOrRole($per)
                 <a href="#" data-bs-toggle="modal" data-bs-target="#{{ $btnTarget }}" type="button"
                     onclick="{{ $funName }}('{{ $roleId }}', {{ Js::from($item) }})" class="me-2">
                     <i class="ri-pencil-line"></i>
                 </a>
                 @endcanOrRole
 
-                <a href="#" delete-url="{{ url('administration/role') }}" delete-item="{{ $roleName }}"
+                {{-- <a href="#" delete-url="{{ url('administration/role') }}" delete-item="{{ $roleName }}"
                     class="delete link-danger" id="{{ $roleId }}" title="Delete">
                     <i class="ri-delete-bin-5-line"></i>
-                </a>
+                </a> --}}
+
+                @if ($roleName != 'Super-Admin')
+                    @canOrRole($perDelete)
+                    <a href="#" delete-url="{{ url('administration/role') }}" delete-item="{{ $roleName }}"
+                        class="delete link-danger" id="{{ $roleId }}" title="Delete">
+                        <i class="ri-delete-bin-5-line"></i>
+                    </a>
+                    @endcanOrRole
+                @endif
             </div>
         </div>
 
