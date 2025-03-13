@@ -34,7 +34,7 @@
 
 
  <div class="row">
-     <x-hidden-input name="userorusertypelist" id="userorusertypelist" :value="$role" />
+     {{-- <x-hidden-input name="userorusertypelist" id="userorusertypelist" :value="$role" /> --}}
      <div class="col-md-4 col-12">
          <div class="row py-3">
              @foreach ($modules as $module)
