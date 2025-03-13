@@ -8,7 +8,7 @@
                             <x-dashboard.include.greeting />
                         </div>
                     </div>
-                    <x-dashboard.include.kpi-card />
+                    {{-- <x-dashboard.include.kpi-card /> --}}
                     <x-dashboard.include.chart />
                 </div>
             </div>
