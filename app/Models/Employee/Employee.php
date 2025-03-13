@@ -3,7 +3,7 @@
 namespace App\Models\Employee;
 
 use App\Models\User;
-use App\Helper\Media;
+use App\Helpers\Media;
 use App\Models\Asset\Asset;
 use App\Models\Branch\Branch;
 use App\Models\Leave\LeaveType;

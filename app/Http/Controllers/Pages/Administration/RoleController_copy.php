@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Role\StoreRequest;
 use App\Http\Requests\Role\UpdateRequest;
 
-class RoleController extends Controller
+class RoleController_copy extends Controller
 {
     protected $modelName = 'Role';
     protected $routeName = 'role.index';
@@ -64,9 +64,7 @@ class RoleController extends Controller
         ]);
     }
 
-    public function create(Request $request)
-    {
-    }
+    public function create(Request $request) {}
 
     public function store(StoreRequest $request)
     {

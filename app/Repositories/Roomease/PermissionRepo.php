@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Administration;
+namespace App\Repositories\Roomease;
 
 use App\Models\Menu\MenuHeader;
 use Spatie\Permission\Models\Role;
