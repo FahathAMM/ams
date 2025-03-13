@@ -5,6 +5,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Livewire::setUpdateRoute(function ($handle) {
-    return Route::post('/ams/livewire/update', $handle);
-});
+// Livewire::setUpdateRoute(function ($handle) {
+//     return Route::post('/ams/livewire/update', $handle);
+// });
